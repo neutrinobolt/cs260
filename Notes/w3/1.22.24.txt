@@ -1,0 +1,21 @@
+Abstract Data Type (ADT):
+    Mathematic that describes how data is organized as seen from user
+    eg. Stack
+
+Stack:
+    ADT Serves collection of elems w/ two main operations (think stack of plates):
+    -Push 
+        Adds elem to collection
+    -Pop
+        Remove most recently added elem
+    -Peek (Optional but usually implemented):
+        Return value of most recently added elem
+
+Queue:
+    ADT Similar to Stack. Keeps track of order of all entered elems
+    -Enqueue:
+        Add elem to "Back" of Queue
+    -Dequeue:
+        Remeove elem from "front" of queue (first added elem)
+
+VidReturn: 2:43
