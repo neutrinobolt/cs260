@@ -1,0 +1,31 @@
+Functions
+
+    Definition:
+    [return type (eg. int)] [function name] (params [don't forget to include data type before each]) {
+        [Function action]
+    }
+        Intellisense note: putting a comment on the line above a function definition makes the 
+            comment appear when hovering over any function calls. Like docstrings in py
+        Syntax note: Function definitions must be made BEFORE all function calls
+            or the program gets mad (Unless you use a forward declaration, 
+            but just don't okay?)
+
+Arrays
+    Definition:
+    ex:
+    int numbers[5] = {3, 6, 9, 12, 15};
+        int = accepted data type
+        numbers = array name
+        5 = array size. Must be a constant, cannot be modified.
+
+For loops
+    ex:
+    for (int index = 0 [starting value]; index < 5 [continuation condition]; ++index [increment (up 1 in this case)]) {
+
+    }
+
+Structs
+
+Classes
+
+Pointers Basic
