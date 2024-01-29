@@ -26,6 +26,27 @@ For loops
 
 Structs
 
+    Def:
+    Collection of values to be stored and viewed
+        Declaring:
+        struct structName {
+            type attributes
+        };
+        Creating instance:
+        struct structName instanceName {
+            instanceAttributes
+        };
+        Selecting specific values:
+        instanceName.instanceAttributes
+
 Classes
 
 Pointers Basic
+    Def: Variable that is just the memory address of another Variable
+        int *pointerName = &pointeeName: says that it expects pointer to be an int
+        Outside of declaration, *Variable returns value at pointer's adress (pointeeName in this case)
+        &Variable will always return adress of Variable
+    Don't worry about them too much. 
+
+Linked List (Data structure):
+    Def: structure of data where each item is able to find next item in order 

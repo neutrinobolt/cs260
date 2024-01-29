@@ -1,0 +1,19 @@
+Classes
+    Setup (Done in an hpp/h (header) file):
+        class [name] {
+            values
+            methods, declarations
+        };
+
+    Put function definitions in separate cpp file
+        this-> refers to this object
+    constructors initialize object (init function in python)
+        MUST BE PUBLIC
+
+
+    Private:
+        These things can only be accessed from within the class. default for classes
+    Public:
+        Can be accessed outside the class. 
+
+Vidreturn: 2:45
