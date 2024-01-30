@@ -1,0 +1,17 @@
+#pragma once
+    Don't overwrite any definitions, only include definitions once
+    
+runtime_error:
+    #include <stdexcept>
+    using std::runtime_error;
+    throw runtime_error("Error message")
+
+Catching errors:
+    try {
+        action to be checked for error
+    }
+    catch (error to check for) {
+        Action to be done in event of error
+    }
+
+vidreturn: 2:50
