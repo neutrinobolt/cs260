@@ -1,0 +1,9 @@
+Header files
+    file extension .hpp
+    Header file holds declarations of everything going into code
+    Connect cpp file to hpp file:
+        in cpp, #include "filedirections"
+
+Dynamic memory  
+    Create pointer to new object
+    Requires garbage Collection: delete objects created
