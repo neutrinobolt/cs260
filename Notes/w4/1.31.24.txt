@@ -1,0 +1,7 @@
+Big-o complexity
+    O = amount of processing time per object in stack
+    O(1) = 
+    Deals in worst case scenario, most time to get through it
+    https://www.bigocheatsheet.com/
+
+vidreturn: 2:46
