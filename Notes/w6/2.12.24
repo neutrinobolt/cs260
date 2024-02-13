@@ -1,0 +1,10 @@
+Binary Tree
+    Tree data structure
+    Items May have left child and right child
+
+Binary search Tree  
+    Left childs are all less than parents, right childs are greater
+    Inserting new values
+        Value goes down Tree by following which values it is greater than or less
+        than until it reaches a nullptr
+        

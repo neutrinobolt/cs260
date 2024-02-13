@@ -14,4 +14,3 @@ Catching errors:
         Action to be done in event of error
     }
 
-vidreturn: 2:50

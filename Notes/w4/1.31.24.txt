@@ -4,4 +4,3 @@ Big-o complexity
     Deals in worst case scenario, most time to get through it
     https://www.bigocheatsheet.com/
 
-vidreturn: 2:46
