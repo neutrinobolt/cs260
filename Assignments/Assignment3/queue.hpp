@@ -6,11 +6,16 @@ class Queue {
     Node *front;
     int count;
 
-    Queue();
 
     public:
+
+        //construction
+        Queue queue();
 
         //queue methods
         void enqueue();
         void dequeue();
+        Node peekRear();
+        Node peekFront();
+        int getCount();
 };
