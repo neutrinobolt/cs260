@@ -8,3 +8,7 @@ Binary search Tree
         Value goes down Tree by following which values it is greater than or less
         than until it reaches a nullptr
         
+    AVL Tree    
+        Binary search that automatically sorts
+        Node has int representing total # children: +1 for right child, -1 for left
+        If total children reaches 2  or -2, rotation
