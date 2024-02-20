@@ -5,16 +5,30 @@
 using std::cout;
 using std::endl;
 
+///////////////////////////////////////////////////////////////////////////
+// Main function
+///////////////////////////////////////////////////////////////////////////
+
 int main() {
     // test and display queue values
     //create queue, test empty values
     Queue *testQueue = new Queue();
+
     //Queue testQueue;
     int startCount = testQueue->getCount();
 
-    cout << "testQueue.getCount(): " << startCount << endl;
+    cout << "startCount: " << startCount << endl;
 
     //test enqueue, add a few nodes, check rear, front and count
+
+    //one node added
+    testQueue->enqueue(5);
+    cout << "testQueue->getCount(): " << testQueue->getCount() << endl;
+    Node checkRear = testQueue->peekRear();
+    Node checkFront = testQueue->peekFront();
+    cout << "testQueue->peekRear(): " << checkRear.value << endl;
+    cout << "testQueue->peekFront(): " << checkFront.value << endl;
+    
 
     //test dequeue, remove some nodes, check rear, front and count
 
@@ -46,7 +60,9 @@ Queue::Queue(){
 //destructor
 Queue::~Queue(){
     // destroy all nodes
-
+    while (count >= 0) {
+        this->dequeue();
+    };
 
     //destroy queue
     delete this;
@@ -57,34 +73,80 @@ int Queue::getCount(){
     return this->count;
 };
 
+///////////////////////////////////////////////////////////////////////////
+// Queueing functions
+///////////////////////////////////////////////////////////////////////////
 
 //add a new node to rear
 void Queue::enqueue(int nodeVal) {
     //create node
     Node *newNode = new Node;
+    newNode->value = nodeVal;
 
-    //point node.next to rear
+    if (count > 0) {
 
-    // set node to rear
+        //get current rear
+        Node *currentRear = this->rear;
+
+        //point node.next to rear
+        newNode->next = currentRear;
+
+        //set currentNode.prev to new rear
+        currentRear->prev = newNode;
+
+    };
+
+    //set node to rear
+    this->rear = newNode;
 
     // if count is 0, set node to front
+    if (this->count == 0) {
+        this->front = newNode;
+    };
 
     // raise count by 1
+    count++;
 
 };
 
+//remove and delete node from front
 void Queue::dequeue() {
+    //get front node
+    Node *nodeToDel = this->front;
+
+    //get front.prev
+    Node *newFront = nodeToDel->prev;
+
+    //set prev.next to nullptr
+    newFront->next = nullptr;
+
+    //delete front
+    delete nodeToDel;
+    //set front to prev
+    this->front = newFront;
+
+    //count decrement
+    count--;
+
+    //if count is now 0, set rear to nullptr
+    if (count==0) {
+        this->rear = nullptr;
+    };
 
 };
 
+///////////////////////////////////////////////////////////////////////////
+// Check functions
+///////////////////////////////////////////////////////////////////////////
+
+//return rear node
 Node Queue::peekRear() {
-
+    Node *rearPtr = this->rear;
+    return *rearPtr;
 };
 
+//return front node
 Node Queue::peekFront() {
-
-};
-
-int Queue::getCount() {
-
+    Node *frontPtr = this->front;
+    return *frontPtr;
 };
