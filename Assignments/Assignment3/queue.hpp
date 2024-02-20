@@ -10,10 +10,12 @@ class Queue {
     public:
 
         //construction
-        Queue queue();
+        Queue();
+        //deconstruction
+        ~Queue();
 
         //queue methods
-        void enqueue();
+        void enqueue(int nodeVal);
         void dequeue();
         Node peekRear();
         Node peekFront();
