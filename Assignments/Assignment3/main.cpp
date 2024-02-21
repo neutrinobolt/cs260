@@ -40,9 +40,34 @@ int main() {
     valCheck(testQueue);
 
     //test dequeue, remove some nodes, check rear, front and count
-    
 
-    
+    //remove one node
+    testQueue->dequeue();
+
+    cout << "Remove one node" << endl;
+    valCheck(testQueue);
+
+    //remove multiple nodes
+    testQueue->dequeue();
+    testQueue->dequeue();
+    testQueue->dequeue();
+
+    cout << "Remove three nodes" << endl;
+    valCheck(testQueue);
+
+    //remove all but one node
+    testQueue->dequeue();
+
+    cout << "Remove all but one node" << endl;
+    valCheck(testQueue);
+
+    //remove all nodes
+    testQueue->dequeue();
+
+    cout << "Remove all nodes" << endl;
+    cout << "count: " << testQueue->getCount() << endl;
+
+    //garbage collection
     testQueue->~Queue();
     return 0;
 };
@@ -84,6 +109,7 @@ Queue::~Queue(){
     while (count > 0) {
         this->dequeue();
     };
+    cout << "All nodes destroyed." << endl;
 
     //destroy queue
     delete this->rear;
@@ -137,25 +163,28 @@ void Queue::dequeue() {
     //get front node
     Node *nodeToDel = this->front;
 
-    //get front.prev
-    Node *newFront = nodeToDel->prev;
-
-    //set prev.next to nullptr
-    newFront->next = nullptr;
-
-    //delete front
-    delete nodeToDel;
-    //set front to prev
-    this->front = newFront;
-
-    //count decrement
-    count--;
-
-    //if count is now 0, set rear to nullptr
-    if (count == 0) {
+    if (this->count <= 1) {
+        this->front = nullptr;
         this->rear = nullptr;
-    };
+        delete nodeToDel;
+        count = 0;
+    }
+    else {
+        //get front.prev
+        Node *newFront = nodeToDel->prev;
 
+        //set prev.next to nullptr
+        newFront->next = nullptr;
+
+        //delete front
+        delete nodeToDel;
+
+        //set front to prev
+        this->front = newFront;
+
+        //count decrement
+        count--;
+    };
 };
 
 ///////////////////////////////////////////////////////////////////////////

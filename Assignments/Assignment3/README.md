@@ -32,3 +32,15 @@ will remove nodes from front.
 Additionally, if count is now 1:
 
 - set rear to nullptr
+
+## file notes
+
+I wasn't sure how better to split the project into separate files
+besides using header files like I did. I'll probably have to go back
+and rewatch some sessions to figure that out. However, I still made
+it work just fine. Testing is conducted in the main function by
+making sure the correct values are returned. This goes from lines 16-72
+in main.cpp. All queue related functions are defined in lines 95-end.
+I'm not entirely sure garbage collection (called line 71, defined lines 107-118)
+works like I want it to, but its print statements print so I assume the
+preceding lines are working properly.
