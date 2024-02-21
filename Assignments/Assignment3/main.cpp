@@ -5,11 +5,14 @@
 using std::cout;
 using std::endl;
 
+void valCheck(Queue *testQueue);
+
 ///////////////////////////////////////////////////////////////////////////
 // Main function
 ///////////////////////////////////////////////////////////////////////////
 
 int main() {
+
     // test and display queue values
     //create queue, test empty values
     Queue *testQueue = new Queue();
@@ -23,17 +26,35 @@ int main() {
 
     //one node added
     testQueue->enqueue(5);
-    cout << "testQueue->getCount(): " << testQueue->getCount() << endl;
-    Node checkRear = testQueue->peekRear();
-    Node checkFront = testQueue->peekFront();
-    cout << "testQueue->peekRear(): " << checkRear.value << endl;
-    cout << "testQueue->peekFront(): " << checkFront.value << endl;
+    cout << "Add one node" << endl;
+    valCheck(testQueue);
+
+    //multiple nodes added (total 6)
+    testQueue->enqueue(6);
+    testQueue->enqueue(7);
+    testQueue->enqueue(8);
+    testQueue->enqueue(9);
+    testQueue->enqueue(3);
     
+    cout << "Add five more nodes" << endl;
+    valCheck(testQueue);
 
     //test dequeue, remove some nodes, check rear, front and count
+    
 
+    
+    testQueue->~Queue();
     return 0;
 };
+
+//value checking function for testing
+    void valCheck (Queue *testQueue) {
+        cout << "testQueue->getCount(): " << testQueue->getCount() << endl;
+        Node checkRear = testQueue->peekRear();
+        Node checkFront = testQueue->peekFront();
+        cout << "testQueue->peekRear(): " << checkRear.value << endl;
+        cout << "testQueue->peekFront(): " << checkFront.value << endl;
+    };
 
 ///////////////////////////////////////////////////////////////////////////
 // Node Function definitions
@@ -60,12 +81,14 @@ Queue::Queue(){
 //destructor
 Queue::~Queue(){
     // destroy all nodes
-    while (count >= 0) {
+    while (count > 0) {
         this->dequeue();
     };
 
     //destroy queue
-    delete this;
+    delete this->rear;
+    delete this->front;
+    cout << "Queue deleted." << endl; 
 };
 
 // getCount function. returns count in queue
@@ -129,7 +152,7 @@ void Queue::dequeue() {
     count--;
 
     //if count is now 0, set rear to nullptr
-    if (count==0) {
+    if (count == 0) {
         this->rear = nullptr;
     };
 
