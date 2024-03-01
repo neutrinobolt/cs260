@@ -8,4 +8,6 @@ struct BinNode {
     BinNode *left;
     BinNode *right;
 
+    BinNode();
+
 };

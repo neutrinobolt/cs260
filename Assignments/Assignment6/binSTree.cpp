@@ -1,0 +1,90 @@
+#include <iostream>
+
+#include "binSTree.hpp"
+
+using std::cout;
+using std::endl;
+
+
+        
+        //Constructor and destructor
+        BinSTree::BinSTree() {
+            this->root = nullptr;
+            cout << "Tree constructed successfully." << endl;
+        };
+
+        BinSTree::~BinSTree() {
+            delete this->root;
+            cout << "Tree destroyed successfully." << endl;
+        };
+
+        //BinTree functions
+
+        void BinSTree::add(int newVal) {
+            // Create new node
+            BinNode *newNode = new BinNode;
+            newNode->value = newVal;
+
+            // If root is nullptr, set root to newNode
+            if (this->root == nullptr) {
+                this->root = newNode;
+            }  else {
+
+                // Find parent to add under
+                BinNode *addParent = addStep(this->root, newNode);
+
+                // Properly connect addParent and newNode
+                newNode->parent = addParent;
+                if (addParent->value > newNode->value) {
+                    addParent->left = newNode;
+                } else {
+                    addParent->right = newNode;
+                };
+            }
+        };
+
+        bool BinSTree::search() {
+            bool result = false;
+            // Do stuff
+            return result;
+        };
+
+        void BinSTree::remove() {
+
+        };
+
+        void BinSTree::ioTraversal() {
+
+        };
+        //Secondary functions
+
+        // Find parent to add node under
+        BinNode *BinSTree::addStep(BinNode *checkParent, BinNode *newNode) {
+            BinNode *result = checkParent;
+
+            // if check > new:
+            if (checkParent > newNode) {
+                if (checkParent->left != nullptr) {
+                    result = addStep(checkParent->left, newNode);
+                }
+            }
+            // if new >= check:
+            else {
+                if (checkParent->right != nullptr) {
+                    result = addStep(checkParent->right, newNode);
+                }
+            }
+            
+            return result;
+        };
+        bool BinSTree::searchStep() {
+            bool result = false;
+            // Do stuff
+            return result;
+        };
+        BinNode *BinSTree::findSuccessor(BinNode *checkNode) {
+            BinNode *result = checkNode;
+            // Do stuff
+            return result;
+        };
+
