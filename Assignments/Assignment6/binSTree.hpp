@@ -11,7 +11,7 @@ class BinSTree {
 
         //BinTree functions
         void add(int newVal);
-        bool search();
+        bool search(int searchVal);
         void remove();
         void ioTraversal();
 
@@ -21,7 +21,7 @@ class BinSTree {
     private:
         //Secondary functions
         BinNode *addStep(BinNode *checkParent, BinNode *newNode);
-        bool searchStep();
+        bool searchStep(int searchVal, BinNode *checkNode);
         BinNode *findSuccessor(BinNode *checkNode);
 
 };

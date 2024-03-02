@@ -43,10 +43,10 @@ using std::endl;
             }
         };
 
-        bool BinSTree::search() {
-            bool result = false;
-            // Do stuff
-            return result;
+        bool BinSTree::search(int searchVal) {
+            // Run searchStep on root, return result
+            bool result = searchStep(searchVal, this->root);
+            return result; 
         };
 
         void BinSTree::remove() {
@@ -77,9 +77,23 @@ using std::endl;
             
             return result;
         };
-        bool BinSTree::searchStep() {
+        bool BinSTree::searchStep(int searchVal, BinNode *checkNode) {
             bool result = false;
-            // Do stuff
+            // If nodeVal == search, return true
+
+            if (checkNode->value == searchVal) {
+                result = true;
+            }
+            else {
+                // Move to proper child node
+                if (checkNode->value > searchVal && checkNode->left != nullptr) {
+                    result = searchStep(searchVal, checkNode->left);
+                }
+                else if (checkNode->right != nullptr) {
+                    result = searchStep(searchVal, checkNode->right);
+                }
+            }
+            //
             return result;
         };
         BinNode *BinSTree::findSuccessor(BinNode *checkNode) {
