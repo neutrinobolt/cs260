@@ -54,9 +54,10 @@ using std::endl;
         };
 
         void BinSTree::ioTraversal() {
-
+            // Start at root
+            travStep(this->root);
         };
-        //Secondary functions
+        //Secondary private functions
 
         // Find parent to add node under
         BinNode *BinSTree::addStep(BinNode *checkParent, BinNode *newNode) {
@@ -102,3 +103,15 @@ using std::endl;
             return result;
         };
 
+        void travStep(BinNode *step) {
+            string result = "";
+            //Left, View, Right: run travStep on left child, view this node,
+            // Run on right child
+            if (step != nullptr) {
+                travStep(step->left);
+                cout << step->value << ", " << endl;
+                travStep(step->right);
+            }
+        };
+
+ 
