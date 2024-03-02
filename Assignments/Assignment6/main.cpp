@@ -21,7 +21,14 @@ int main() {
     testTree->add(30);
     cout << "testTree->root->right->value: " << testTree->root->right->value << endl;
 
-
+    ////////////////////////////////////////////////////////////////
+    // Test search function
+    // Test true result. Should return 1
+    bool trueRes = testTree->search(10);
+    cout << "trueRes: " << trueRes << endl;
+    // Test false result. Should return 0
+    bool falseRes = testTree->search(25);
+    cout << "falseRes: " << falseRes << endl;
     // Garbage Collection
     testTree->~BinSTree();
 
