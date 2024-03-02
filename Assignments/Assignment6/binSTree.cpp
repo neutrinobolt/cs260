@@ -41,6 +41,7 @@ using std::endl;
                     addParent->right = newNode;
                 };
             }
+            // cout << "New node of value " << newVal << " added." << endl; // Debug
         };
 
         bool BinSTree::search(int searchVal) {
@@ -49,13 +50,20 @@ using std::endl;
             return result; 
         };
 
-        void BinSTree::remove() {
+        void BinSTree::remove(int remVal) {
+            // Make sure val is present in tree
 
+            // Get node
+
+            // If node has no children:
+
+            // If node has 1 child: 
         };
 
         void BinSTree::ioTraversal() {
             // Start at root
             travStep(this->root);
+            cout << endl;
         };
         //Secondary private functions
 
@@ -64,7 +72,7 @@ using std::endl;
             BinNode *result = checkParent;
 
             // if check > new:
-            if (checkParent > newNode) {
+            if (checkParent->value > newNode->value) {
                 if (checkParent->left != nullptr) {
                     result = addStep(checkParent->left, newNode);
                 }
@@ -75,7 +83,7 @@ using std::endl;
                     result = addStep(checkParent->right, newNode);
                 }
             }
-            
+            // cout << "Parent result: " << result->value << endl; // Debug
             return result;
         };
         bool BinSTree::searchStep(int searchVal, BinNode *checkNode) {
@@ -103,13 +111,13 @@ using std::endl;
             return result;
         };
 
-        void travStep(BinNode *step) {
+        void BinSTree::travStep(BinNode *step) {
             string result = "";
             //Left, View, Right: run travStep on left child, view this node,
             // Run on right child
             if (step != nullptr) {
                 travStep(step->left);
-                cout << step->value << ", " << endl;
+                cout << step->value << ", " ;
                 travStep(step->right);
             }
         };
