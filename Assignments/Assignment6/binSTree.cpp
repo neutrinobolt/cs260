@@ -14,6 +14,9 @@ using std::endl;
         };
 
         BinSTree::~BinSTree() {
+            while (this->root != nullptr) {
+                remove(this->root->value);
+            }
             delete this->root;
             cout << "Tree destroyed successfully." << endl;
         };
@@ -51,13 +54,104 @@ using std::endl;
         };
 
         void BinSTree::remove(int remVal) {
+            cout << "Attempting to delete node of value " << remVal << endl; // debug
             // Make sure val is present in tree
+            cout << "Searching for node: " << remVal << endl; // debug
+            if (this->search(remVal) == false) {
+                cout << "ERROR, node of value " << remVal << " does not exist in this tree." << endl;
+            }
+            else {
+                cout << "Found node of value" <<remVal << endl; // debug
+                // Get node
+                BinNode *remNode = this->getNode(remVal);
+                cout << "Collected data for node of value: " << remNode->value << endl; // debug
 
-            // Get node
+                // [Megamind meme] "No children???"
+                BinNode *remParent = remNode->parent;
+                if (remNode->left == nullptr && remNode->right == nullptr) {
+                    cout << "Deleting node with no children..." << endl;
+                    if (remParent->value > remVal) {
+                        remParent->left = nullptr;
+                    } else {
+                        remParent->right = nullptr;
+                    }
+                    // Root deletion catcher
+                    if (remNode == this->root) {
+                        this->root = nullptr;
+                    } 
+                    cout << "Node removed from tree." << endl;
+                    delete remNode;
+                    cout << "Node destroyed." << endl;
+                    // cout << "Deleted node with no children of value: " << remVal << endl;
+                }
 
-            // If node has no children:
+                // If node has 1 spoiled brat of a child: 
+                // Child on left
+                else if (remNode->right == nullptr) {
+                    // Set left child to child of parent, delete remNode
+                    if (remParent->value > remVal) {
+                        remParent->left = remNode->left;
+                    }
+                    else {
+                        remParent->right = remNode->left;
+                    }
+                    // Root deletion catcher
+                    if (remNode == this->root) {
+                        this->root = remNode->left;
+                    }
+                    delete remNode;
+                    cout << "Deleted node with one left child of value: " << remVal << endl;
+                }
+                // Child on right
+                else if (remNode->left == nullptr) {
+                    // Set left child to child of parent, delete remNode
+                    if (remParent->value > remVal) {
+                        remParent->left = remNode->right;
+                    }
+                    else {
+                        remParent->right = remNode->right;
+                    }
+                    // Root deletion catcher
+                    if (remNode == this->root) {
+                        this->root = remNode->left;
+                    }
+                    delete remNode;
+                    cout << "Deleted node with one right child of value: " << remVal << endl;
+                }
+                // If node has 2 children (The hard one): 
+                else {
+                    // Find successor
+                    BinNode *successor = findSuccessor(remNode);
+                    // Replace remNode with successor
+                    // Pointers to succ:
+                    remNode->left->parent = successor;
+                    remNode->right->parent = successor;
+                    // White out pointer from old parent
+                    if (successor != remNode->right) {
+                        successor->parent->left = nullptr;
+                    } 
+                    // Point remParent to successor
+                    if (remParent->value > remVal) {
+                        remParent->left = successor;
+                    } else {
+                        remParent->right = successor;
+                    }
+                    // Pointers from succ:
+                    successor->parent = remParent;
+                    successor->left = remNode->left;
+                    successor->right = remNode->right;
+                    // Root deletion catcher
+                    if (remNode == this->root) {
+                        this->root = successor;
+                    }
+                    // Delete remNode
+                    delete remNode;
+                    cout << "Successfully deleted node of value" << remVal;
+                    cout << " and replaced with successor of value" << successor->value;
+                }
 
-            // If node has 1 child: 
+            }
+
         };
 
         void BinSTree::ioTraversal() {
@@ -65,7 +159,9 @@ using std::endl;
             travStep(this->root);
             cout << endl;
         };
+        ////////////////////////////////////////////////////////////////
         //Secondary private functions
+        ////////////////////////////////////////////////////////////////
 
         // Find parent to add node under
         BinNode *BinSTree::addStep(BinNode *checkParent, BinNode *newNode) {
@@ -105,9 +201,41 @@ using std::endl;
             //
             return result;
         };
+
+        /* Return node of input value. If multiple nodes of value are present,
+        only the first appearing node of that value be returned. Does not work
+        if there is no node in tree of value.*/
+        BinNode *BinSTree::getNode(int nodeVal) {
+            return this->getHelper(this->root, nodeVal);
+        };
+
+        BinNode *BinSTree::getHelper(BinNode *checkNode, int nodeVal) {
+                // cn vs nv
+                if (checkNode->value == nodeVal) {
+                    return checkNode;
+                }
+                else if (checkNode->value > nodeVal) {
+                    return getHelper(checkNode->left, nodeVal);
+                }
+                else {
+                    return getHelper(checkNode->right, nodeVal);
+                }
+        };
+
+        // Return successor to replace remNode.
+        /*Initially set successor to right child
+        - run succHelp*/
         BinNode *BinSTree::findSuccessor(BinNode *checkNode) {
+            BinNode *result = checkNode->right;
+            result = succHelp(result);
+            return result;
+        };
+
+        BinNode *BinSTree::succHelp(BinNode *checkNode) {
             BinNode *result = checkNode;
-            // Do stuff
+            if (result->left != nullptr) {
+                result = succHelp(result->left);
+            }
             return result;
         };
 
@@ -121,5 +249,4 @@ using std::endl;
                 travStep(step->right);
             }
         };
-
  

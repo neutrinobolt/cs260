@@ -11,6 +11,7 @@ int main() {
 
     ////////////////////////////////////////////////////////////////
     // Test add function
+    cout << endl << "Add function testing:" << endl;
     // add root node, check it's there
     testTree->add(20);
     cout << "testTree->root->value: " << testTree->root->value << endl;
@@ -40,6 +41,7 @@ int main() {
 
     ////////////////////////////////////////////////////////////////
     // Test search function
+    cout << endl << "Search function testing:" << endl;
     // Test true result. Should return 1
     bool trueRes = testTree->search(5);
     cout << "trueRes: " << trueRes << endl;
@@ -49,12 +51,23 @@ int main() {
 
     ////////////////////////////////////////////////////////////////
     // Test ioTraversal function
+    cout << endl << "io traversal testing:" << endl;
     // Should print "10, 20, 30, "
     cout << "testTree->ioTraversal(): ";
     testTree->ioTraversal();
 
+    ////////////////////////////////////////////////////////////////
+    // Test Remove function
+    cout << endl << "Remove testing:" << endl;
+    // Test error catching: input invalid value
+    testTree->remove(14);
+    testTree->ioTraversal();
+    // Test no children
+    testTree->remove(3);
+    testTree->ioTraversal();
+
     // Garbage Collection
-    testTree->~BinSTree();
+    // testTree->~BinSTree();
 
     return 0;
 }
