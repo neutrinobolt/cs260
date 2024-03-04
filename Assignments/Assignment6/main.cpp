@@ -52,7 +52,7 @@ int main() {
     ////////////////////////////////////////////////////////////////
     // Test ioTraversal function
     cout << endl << "io traversal testing:" << endl;
-    // Should print "10, 20, 30, "
+    // Should print "3,5,8,10,13,15,18,20,23,25,28,30,33,35,38,"
     cout << "testTree->ioTraversal(): ";
     testTree->ioTraversal();
 
@@ -61,13 +61,39 @@ int main() {
     cout << endl << "Remove testing:" << endl;
     // Test error catching: input invalid value
     testTree->remove(14);
-    testTree->ioTraversal();
+    // testTree->ioTraversal();
     // Test no children
     testTree->remove(3);
-    testTree->ioTraversal();
+    // testTree->ioTraversal();
 
+    testTree->remove(38);
+    // testTree->ioTraversal();
+
+    // Test one child
+
+    // Child on left
+    testTree->remove(35);
+    // testTree->ioTraversal();
+
+    // Child on right
+    testTree->remove(5);
+    // testTree->ioTraversal();
+
+    // 2 children
+    // Right child is successor
+    testTree->remove(30);
+    // testTree->ioTraversal();
+    // Right child is not successor
+    testTree->remove(10);
+    // testTree->ioTraversal();
+
+    // Remove root
+    // cout << "Attempting to delete root:" << endl;
+    // testTree->remove(20);
+    
     // Garbage Collection
-    // testTree->~BinSTree();
+    cout << endl << "Garbage collection" << endl;
+    testTree->~BinSTree();
 
     return 0;
 }
