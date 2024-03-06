@@ -1,6 +1,6 @@
 # Assignment 6: Binary Tree
 
-Readme last updated 2/28/24
+Readme last updated 3/6/24
 
 ## Plan
 
@@ -142,3 +142,45 @@ traversal (inOrder)
 addStep
 searchStep
 findSuccessor
+
+## Results
+
+Overall, I'm happy with how the final result turned out. The remove function
+was a beast to work out, but I think I figured out all the kinks. I chose to
+include parent pointers in each node and that made some parts of the code
+easier, but it definitely led to the remove function getting way more gunked
+up. Other than that I think it works fine, though it is possible that I
+missed coverage for some cases.
+
+### Places of note
+
+#### Function definitions
+
+- Add: binstree.cpp, ln's 27-49
+
+- Search: binstree.cpp, ln's 51-54
+
+- Remove: binstree.cpp, ln's 57-156 (It's rather long)
+
+- IOTrav: binstree.cpp, ln's 158-162
+
+- AddStep: binstree.cpp, ln's 168-169
+
+- SearchStep: binstree.cpp, ln's 186-204
+
+- GetNode/GetHelper: binstree.cpp, ln's 209-224
+
+- FindSuccessor/SuccHelp: binstree.cpp, ln's 229-234
+
+- TravStep: binstree.cpp, ln's 243-end
+
+#### Question 4 Response
+
+based on my understanding of an unordered graph, the complexity of adding
+a node to one would be O(1)? Since you can just add it to the front and point
+it to the last front, adding it to the right of the old node if the front doesn't
+have a right node. Searching will be O(nlog(n)), Since you essentially just
+must go down every path until you find the desired node. So it's got a really
+fast insert function, but the inefficiency makes it not worth it. In comparison,
+this sorted graph has complexities of O(log(n)) for both insertion and
+searching. This is a much better deal.
