@@ -19,7 +19,7 @@ using std::endl;
                 remove(this->root->value);
                 cout << "Node deleted" << endl;
                 cout << "Current root: " << this->root->value << endl;
-                cout << "root.right: " << this->root->right->value << endl;
+                // cout << "root.right: " << this->root->right->value << endl;
                 cout << "root.left: " << this->root->left->value << endl;
                 this->ioTraversal();
             }
@@ -60,22 +60,17 @@ using std::endl;
         };
 
         void BinSTree::remove(int remVal) {
-            // cout << "Attempting to delete node of value " << remVal << endl; // debug
             // Make sure val is present in tree
-            // cout << "Searching for node: " << remVal << endl; // debug
             if (this->search(remVal) == false) {
                 cout << "ERROR, node of value " << remVal << " does not exist in this tree." << endl;
             }
             else {
-                // cout << "Found node of value" <<remVal << endl; // debug
                 // Get node
                 BinNode *remNode = this->getNode(remVal);
-                // cout << "Collected data for node of value: " << remNode->value << endl; // debug
 
                 // [Megamind meme] "No children???"
                 BinNode *remParent = remNode->parent;
                 if (remNode->left == nullptr && remNode->right == nullptr) {
-                    // cout << "Deleting node with no children..." << endl;
                     if (remParent->value > remVal) {
                         remParent->left = nullptr;
                     } else {
@@ -84,11 +79,8 @@ using std::endl;
                     // Root deletion catcher
                     if (remNode == this->root) {
                         this->root = nullptr;
-                    } 
-                    // cout << "Node removed from tree." << endl;
+                    }
                     delete remNode;
-                    // cout << "Node destroyed." << endl;
-                    // cout << "Deleted node with no children of value: " << remVal << endl;
                 }
 
                 // If node has 1 spoiled brat of a child: 
@@ -106,7 +98,6 @@ using std::endl;
                         this->root = remNode->left;
                     }
                     delete remNode;
-                    // cout << "Deleted node with one left child of value: " << remVal << endl;
                 }
                 // Child on right
                 else if (remNode->left == nullptr) {
@@ -119,58 +110,54 @@ using std::endl;
                     }
                     // Root deletion catcher
                     if (remVal == this->root->value) {
-                        // cout << "Deleting root node." << endl;
                         this->root = remNode->left;
-                        // cout << "Root node replaced." << endl;
                     }
                     delete remNode;
-                    // cout << "Deleted node with one right child of value: " << remVal << endl;
                 }
                 // If node has 2 children (The hard one): 
                 else {
                     // Find successor
                     BinNode *successor = findSuccessor(remNode);
                     // Replace remNode with successor
-                    // cout << "Changing node paths:" << endl;
-
+                    // cout << "remNode.left: " << remNode->left->value << endl;
                     // Pointers to succ:
                     remNode->left->parent = successor;
                     remNode->right->parent = successor;
-                    // cout << "Updated child paths to new node" << endl;
-                    // White out pointer from old parent
+                    // cout << "remNode.left: " << remNode->left->value << endl;
+                    // White out pointer from old parent and child
                     if (successor != remNode->right) {
+                        // cout << "In the weird bit" << endl;
+                        if (successor->right != nullptr) {
+                            successor->right->parent = successor->parent;
+                        }
+                        // cout << "successor.parent.left (should be successor): " << successor->parent->left->value << endl;
                         successor->parent->left = successor->right;
+                        // cout << "successor->parent->left: " << successor->parent->left << endl;
+                        // cout << "root.left: " << this->root->left << endl;
                     } 
-                    // cout << "Updated parent path to new node" << endl;
+                    // cout << "remNode.left: " << remNode->left->value << endl;
                     // Point remParent to successor
                     if (remParent != nullptr) {
                         if (remParent->value > remVal) {
                             remParent->left = successor;
                         } else {
                             remParent->right = successor;
-                        // cout << "Pointed parent to successor." << endl;
                         }
                     }
                     // Pointers from succ:
-                    // cout << "Changing successor pointers:" << endl;
                     successor->parent = remParent;
+                    // cout << "setting successor to: " << remNode->left << endl;
                     successor->left = remNode->left;
+                    // cout << "successor left child set: " << successor->left->value << endl;
                     if (successor != remNode->right) {
                         successor->right = remNode->right;
                     }
-                    // cout << "Node paths deleted." << endl;
                     // Root deletion catcher
                     if (remNode == this->root) {
-                        // cout << "Deleting root node." << endl;
                         this->root = successor;
-                        // cout << "Root node replaced." << endl;
                     }
                     // Delete remNode
-                    // cout << "deleting node:" << endl;
                     delete remNode;
-                    // cout << "Node deleted." << endl;
-                    // cout << "Successfully deleted node of value " << remVal;
-                    // cout << " and replaced with successor of value " << successor->value << endl;
                 }
 
             }
