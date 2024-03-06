@@ -15,12 +15,7 @@ using std::endl;
 
         BinSTree::~BinSTree() {
             while (this->root != nullptr) {
-                cout << "deleting node: " << this->root->value << endl;
                 remove(this->root->value);
-                cout << "Node deleted" << endl;
-                cout << "Current root: " << this->root->value << endl;
-                // cout << "root.right: " << this->root->right->value << endl;
-                cout << "root.left: " << this->root->left->value << endl;
                 this->ioTraversal();
             }
             delete this->root;
@@ -87,11 +82,13 @@ using std::endl;
                 // Child on left
                 else if (remNode->right == nullptr) {
                     // Set left child to child of parent, delete remNode
-                    if (remParent->value > remVal) {
-                        remParent->left = remNode->left;
-                    }
-                    else {
-                        remParent->right = remNode->left;
+                    if (remParent != nullptr) {
+                        if (remParent->value > remVal) {
+                            remParent->left = remNode->left;
+                        }
+                        else {
+                            remParent->right = remNode->left;
+                        }
                     }
                     // Root deletion catcher
                     if (remNode == this->root) {
@@ -101,12 +98,14 @@ using std::endl;
                 }
                 // Child on right
                 else if (remNode->left == nullptr) {
-                    // Set left child to child of parent, delete remNode
-                    if (remParent->value > remVal) {
+                    // Set right child to child of parent, delete remNode
+                    if (remParent != nullptr) {
+                        if (remParent->value > remVal) {
                         remParent->left = remNode->right;
-                    }
-                    else {
-                        remParent->right = remNode->right;
+                        }
+                        else {
+                            remParent->right = remNode->right;
+                        }
                     }
                     // Root deletion catcher
                     if (remVal == this->root->value) {
@@ -119,23 +118,17 @@ using std::endl;
                     // Find successor
                     BinNode *successor = findSuccessor(remNode);
                     // Replace remNode with successor
-                    // cout << "remNode.left: " << remNode->left->value << endl;
                     // Pointers to succ:
                     remNode->left->parent = successor;
                     remNode->right->parent = successor;
-                    // cout << "remNode.left: " << remNode->left->value << endl;
                     // White out pointer from old parent and child
                     if (successor != remNode->right) {
                         // cout << "In the weird bit" << endl;
                         if (successor->right != nullptr) {
                             successor->right->parent = successor->parent;
                         }
-                        // cout << "successor.parent.left (should be successor): " << successor->parent->left->value << endl;
                         successor->parent->left = successor->right;
-                        // cout << "successor->parent->left: " << successor->parent->left << endl;
-                        // cout << "root.left: " << this->root->left << endl;
-                    } 
-                    // cout << "remNode.left: " << remNode->left->value << endl;
+                        } 
                     // Point remParent to successor
                     if (remParent != nullptr) {
                         if (remParent->value > remVal) {
@@ -146,9 +139,7 @@ using std::endl;
                     }
                     // Pointers from succ:
                     successor->parent = remParent;
-                    // cout << "setting successor to: " << remNode->left << endl;
                     successor->left = remNode->left;
-                    // cout << "successor left child set: " << successor->left->value << endl;
                     if (successor != remNode->right) {
                         successor->right = remNode->right;
                     }

@@ -61,36 +61,32 @@ int main() {
     cout << endl << "Remove testing:" << endl;
     // Test error catching: input invalid value
     testTree->remove(14);
-    // testTree->ioTraversal();
+    testTree->ioTraversal();
     // Test no children
     testTree->remove(3);
-    // testTree->ioTraversal();
+    testTree->ioTraversal();
 
     testTree->remove(38);
-    // testTree->ioTraversal();
+    testTree->ioTraversal();
 
     // Test one child
 
     // Child on left
     testTree->remove(35);
-    // testTree->ioTraversal();
+    testTree->ioTraversal();
 
     // Child on right
     testTree->remove(5);
-    // testTree->ioTraversal();
+    testTree->ioTraversal();
 
     // 2 children
     // Right child is successor
     testTree->remove(30);
-    // testTree->ioTraversal();
-    // Right child is not successor
+    testTree->ioTraversal();
     testTree->remove(10);
-    // testTree->ioTraversal();
-
-    // Remove root
-    // cout << "Attempting to delete root:" << endl;
-    // testTree->remove(20);
+    testTree->ioTraversal();
     
+    ////////////////////////////////////////////////////////////////
     // Garbage Collection
     cout << endl << "Garbage collection" << endl;
     testTree->~BinSTree();
