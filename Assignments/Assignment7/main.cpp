@@ -22,6 +22,9 @@ int main() {
     
     ////////////////////////////////////////////////////////////////
     // Test hash function
+    // test values: "Fudge" (Expect 1) and "Caramel" (Expect 3)
+    cout << "hash('Fudge'): " << testTable->hash("Fudge") << endl;
+    cout << "hash('Caramel'): " << testTable->hash("Caramel") << endl;
 
     ////////////////////////////////////////////////////////////////
     // Test Insert function
@@ -35,4 +38,4 @@ int main() {
     cout << "reached end of test." << endl;
 
     return 0;
-}
+} 

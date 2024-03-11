@@ -16,7 +16,7 @@ hTable::~hTable() {
 
 int hTable::hash(string key) {
     int result = 0; 
-    for (int step; step < key.length(); step++) {
+    for (int step = 0; step < key.length(); step++) {
         result += int(key[step]);
     }
     return result % 10;
