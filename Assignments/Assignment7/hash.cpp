@@ -3,6 +3,10 @@
 ////////////////////////////////////////////////////////////////
 // Define functions from hash.hpp
 hTable::hTable() {
+    // Create all indices with empty strings
+    for (int index = 0; index < 10; index++) {
+        this->hashArray[index] = "";
+    }
 
 }
 
