@@ -53,6 +53,20 @@ int main() {
     cout << "valCheck(Fudge)" << checkTrue << endl;
 
     ////////////////////////////////////////////////////////////////
+    // Test remove function
+
+    // Test value not present error
+    testTable->remove("boop", "None");
+
+    // Test remove at given index
+    testTable->remove("Fudge", "Caramel");
+    tableCheck(testTable);
+
+    // Test remove after linear probe
+    testTable->remove("Q", "Sweets");
+    tableCheck(testTable);
+
+    ////////////////////////////////////////////////////////////////
     // Garbage collection
     testTable->~hTable();
     cout << "reached end of test." << endl;

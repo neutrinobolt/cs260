@@ -7,6 +7,7 @@ using std::string;
 class hTable {
     private:
         int collCheck(int index);
+        int findInd(int startInd, string value);
         
     public:
         string hashArray[10];

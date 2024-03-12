@@ -42,7 +42,17 @@ void hTable::insert(string key, string value) {
 }
 
 void hTable::remove(string key, string value) {
-    // Find index to remove
+    // If value not present:
+    if (this->valCheck(value) == false) {
+        cout << "ERROR, input value not in table." << endl;
+    }
+    else {
+        // Find index to remove
+        int remInd = this->findInd(hash(key), value);
+
+        // Replace index with ""
+        this->hashArray[remInd] = "";
+    }
 }
 
 bool hTable::valCheck(string value) {
@@ -66,6 +76,15 @@ int hTable::collCheck(int index) {
     if (this->hashArray[index] != "") {
         cout << "Collision detected!" << endl;
         result = collCheck(index + 1);
+    }
+    return result;
+}
+// Return index at which value is located
+int hTable::findInd(int startInd, string value) {
+    int result = startInd;
+    // Check if result holds value
+    if (this->hashArray[result] != value) {
+        result = findInd(result + 1, value);
     }
     return result;
 }
