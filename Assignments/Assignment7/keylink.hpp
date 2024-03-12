@@ -5,7 +5,8 @@
 using std::string;
 
 struct keyLink {
-    string key;
+    string *key;
     keyLink *next;
-
+    keyLink();
+    ~keyLink();
 };
