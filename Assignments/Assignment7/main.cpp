@@ -28,6 +28,15 @@ int main() {
 
     ////////////////////////////////////////////////////////////////
     // Test Insert function
+    // Generic insertion
+    testTable->insert("Fudge", "Caramel");
+    tableCheck(testTable);
+    // Second insertion
+    testTable->insert("Caramel", "Fudge");
+    tableCheck(testTable);
+    // Collision (Overwrite previous value)
+    testTable->insert("Fudge", "Toffee");
+    tableCheck(testTable);
 
     ////////////////////////////////////////////////////////////////
     // Test lookup function

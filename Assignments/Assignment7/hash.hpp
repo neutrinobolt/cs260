@@ -15,5 +15,5 @@ class hTable {
         // Functions to test
         int hash(string key);
         void insert (string key, string value);
-        bool lookup (string value);
+        bool valCheck (string value);
 };

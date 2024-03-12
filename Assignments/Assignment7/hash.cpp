@@ -16,6 +16,7 @@ hTable::~hTable() {
 
 int hTable::hash(string key) {
     int result = 0; 
+    // Add ascii value of each character together, return result % table size
     for (int step = 0; step < key.length(); step++) {
         result += int(key[step]);
     }
@@ -24,10 +25,15 @@ int hTable::hash(string key) {
 }
 
 void hTable::insert(string key, string value) {
+    // Hash key
+    int hInd = this->hash(key);
+
+    // Insert value at hash index
+    this->hashArray[hInd] = value;
 
 }
 
-bool hTable::lookup(string value) {
+bool hTable::valCheck(string value) {
     bool result = false; // Change later
     return result;
 
