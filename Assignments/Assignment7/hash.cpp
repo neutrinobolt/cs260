@@ -34,7 +34,13 @@ void hTable::insert(string key, string value) {
 }
 
 bool hTable::valCheck(string value) {
-    bool result = false; // Change later
+    bool result = false;
+    // Pass through all indices. If index == value, change result to true
+    for(int index = 0; index < 10; index++) {
+        if (this->hashArray[index] == value) {
+            result = true;
+        }
+    }
     return result;
 
 }

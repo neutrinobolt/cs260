@@ -39,7 +39,15 @@ int main() {
     tableCheck(testTable);
 
     ////////////////////////////////////////////////////////////////
-    // Test lookup function
+    // Test valCheck function
+    
+    // Test false result
+    bool checkFalse = testTable->valCheck("Caramel");
+    cout << "valCheck(Caramel): " << checkFalse << endl;
+
+    // test true result
+    bool checkTrue = testTable->valCheck("Fudge");
+    cout << "valCheck(Fudge)" << checkTrue << endl;
 
     ////////////////////////////////////////////////////////////////
     // Garbage collection
