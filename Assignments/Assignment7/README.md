@@ -1,5 +1,7 @@
 # Assignment 7: Hash table
 
+Last updated 3/11/24
+
 ## Plan
 
 For this assignment I will create a simple hash table that can take a key/value
@@ -46,3 +48,28 @@ found, the function will return true. else, the function will return false.
 
 This can be tested by checking that a non-existant value returns false
 and and existing value returns true.
+
+### Complex table
+
+So, the simple table took me no time at all to whip up. Time to add some spice!
+
+#### Remove function
+
+- Given a key, replace the associated value in the array with an empty string.
+- Test by printing the array.
+
+#### Linear probing collision handler
+
+- When inserting a new value, check if intended index has a value in it. if so,
+attempt to insert value at next index, making same check. continue until empty
+empty index is found.
+- again, test by printing the array.
+
+#### Dynamic resizing
+
+- For this I may need to make some heavy adjustments to my existing code.
+- When inserting values, add key to a linked list of keys.
+- When array reaches half full, resize.
+- extract keys and values, place them in separate arrays in matching order.
+- create new array with size double that of old one
+- reinsert keyk-val pairs to new array

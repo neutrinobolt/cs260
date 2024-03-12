@@ -34,8 +34,11 @@ int main() {
     // Second insertion
     testTable->insert("Caramel", "Fudge");
     tableCheck(testTable);
-    // Collision (Overwrite previous value)
-    testTable->insert("Fudge", "Toffee");
+    // Collision (Insert at next available slot)
+    testTable->insert("G", "Toffee");
+    tableCheck(testTable);
+    // Multiple collisions
+    testTable->insert("Q", "Sweets");
     tableCheck(testTable);
 
     ////////////////////////////////////////////////////////////////

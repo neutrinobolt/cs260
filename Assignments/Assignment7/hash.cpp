@@ -1,4 +1,9 @@
+#include <iostream>
+
 #include "hash.hpp"
+
+using std::cout;
+using std::endl;
 
 ////////////////////////////////////////////////////////////////
 // Define functions from hash.hpp
@@ -28,9 +33,16 @@ void hTable::insert(string key, string value) {
     // Hash key
     int hInd = this->hash(key);
 
+    // Check for collisions
+    hInd = collCheck(hInd);
+
     // Insert value at hash index
     this->hashArray[hInd] = value;
 
+}
+
+void hTable::remove(string key, string value) {
+    // Find index to remove
 }
 
 bool hTable::valCheck(string value) {
@@ -43,4 +55,17 @@ bool hTable::valCheck(string value) {
     }
     return result;
 
+}
+
+////////////////////////////////////////////////////////////////
+// Private function declarations
+
+int hTable::collCheck(int index) {
+    // If index is open, return index
+    int result = index;
+    if (this->hashArray[index] != "") {
+        cout << "Collision detected!" << endl;
+        result = collCheck(index + 1);
+    }
+    return result;
 }
