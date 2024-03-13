@@ -16,7 +16,7 @@ void tableCheck (hTable *testTable) {
 int main() {
     ////////////////////////////////////////////////////////////////
     // Create and test creation of hTable
-    hTable *testTable = new hTable;
+    hTable *testTable = new hTable(10);
     cout << "Checking creation of testTable:" << endl;
     tableCheck(testTable);
     

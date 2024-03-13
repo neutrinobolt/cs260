@@ -11,12 +11,13 @@ class hTable {
         keyList *keys;
         int collCheck(int index);
         int findInd(int startInd, string value);
+        void resize();
         
     public:
-        string hashArray[10];
-        int *count;
+        string *hashArray = nullptr;
+        int count;
         // Construction and destruction
-        hTable();
+        hTable(int size);
         ~hTable();
         // Functions to test
         int hash(string key);

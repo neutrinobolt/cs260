@@ -7,13 +7,19 @@ using std::endl;
 
 keyList::keyList() {
     this->root = nullptr;
+    this->count = 0;
 }
 
 keyList::~keyList() {
-    while (this->root != nullptr) {
+    while (this->count > 0) {
+        cout << "Count: " << this->count << endl;
         this->pop();
+        cout << "Popped." << endl;
+        cout << "Count: " << this->count << endl;
     }
+    cout << "All keys popped." << endl;
     delete this->root;
+    cout << "list deleted." << endl;
 }
 
 // Add new key to top of stack
@@ -27,6 +33,8 @@ void keyList::push(string *key) {
 
     // Set root to new link
     this->root = pushLink;
+
+    count++;
 }
 
 // Remove top key
@@ -38,7 +46,9 @@ void keyList::pop() {
     this->root = popKey->next;
 
     // Destroy old root
-    popKey->~keyLink();
+    delete popKey;
+
+    count--;
 }
 
 // Remove input key
@@ -62,13 +72,15 @@ void keyList::pull(string *key) {
             cout << "remPrev: " << *remPrev->key << endl; // debug
             // Isolate remKey
             keyLink *remKey = this->getKey(key);
-            cout << "remKey: " << *remKey->key << endl; // debug
+            // cout << "remKey: " << *remKey->key << endl; // debug
             // Set previous's next to remKey's next
             remPrev->next = remKey->next;
             cout << "Key pulled." << endl;
             // Destroy remKey
-            delete remKey;
+             delete remKey;
             cout << "remKey deleted." << endl;
+            
+            count--;
         }
     }
 }
@@ -78,7 +90,7 @@ void keyList::pull(string *key) {
 
 // Check if input key is in stack.
 bool keyList::checkKey(string *key) {
-    cout << "Checking key:" << endl;
+    // cout << "Checking key:" << endl;
     bool result = false;
     keyLink *step = this->root;
     // Check each key
@@ -111,13 +123,13 @@ keyLink *keyList::getKey(string *key) {
 // Return link poining to link of input key. Only run if checkKey(key) returns true!
 // Also only works when key is not root.
 keyLink *keyList::getPrev(string *key) {
-    cout << "Retrieving key to " << *key << endl;
+    // cout << "Retrieving key to " << *key << endl;
     keyLink *step = this->root;
     keyLink *result = step;
     while (step != nullptr) {
-        cout << "Checking key " << *step->key << endl;
+        // cout << "Checking key " << *step->key << endl;
         if (*step->next->key == *key) {
-            cout << "returning " << *step->next->key << endl;
+            // cout << "returning " << *step->next->key << endl;
             return step->next;
         }
         step = step->next;

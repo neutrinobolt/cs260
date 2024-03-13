@@ -12,7 +12,7 @@ class keyList {
 
     public:
         keyLink *root;
-
+        int count;
         keyList();
         ~keyList();
         void push(string *key);

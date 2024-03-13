@@ -7,11 +7,12 @@ using std::endl;
 
 ////////////////////////////////////////////////////////////////
 // Define functions from hash.hpp
-hTable::hTable() {
+hTable::hTable(int size) {
     // Create all indices with empty strings
-    for (int ind = 0; ind < 10; ind++) {
-        this->hashArray[ind] = "";
-    }
+    // for (int ind = 0; ind < 10; ind++) {
+    //     this->hashArray[ind] = "";
+    // }
+    hashArray = new string[size];
     // Create key list
     this->keys = new keyList;
     // Start count at 0
@@ -19,7 +20,9 @@ hTable::hTable() {
 }
 
 hTable::~hTable() {
-
+    cout << "Deleting keys:" << endl;
+    this->keys->~keyList();
+    this->hashArray->~basic_string();
 }
 
 int hTable::hash(string key) {
@@ -50,6 +53,8 @@ void hTable::insert(string key, string value) {
     // Count +1
     count++;
 
+    // Check for resize
+    // if (count == )
 }
 
 void hTable::remove(string key, string value) {
@@ -60,14 +65,14 @@ void hTable::remove(string key, string value) {
     else {
         // Find index to remove
         int remInd = this->findInd(hash(key), value);
-        cout << "value found at index " << remInd << endl;
+        // cout << "value found at index " << remInd << endl;
 
         // Replace index with ""
         this->hashArray[remInd] = "";
 
         // Remove key from keylist
         string *keyPoint = &key;
-        cout << "Preparing to pull key:" << endl;
+        // cout << "Preparing to pull key:" << endl;
         this->keys->pull(keyPoint);
 
         // Count -1
@@ -95,7 +100,7 @@ int hTable::collCheck(int index) {
     // If index is open, return index
     int result = index;
     if (this->hashArray[index] != "") {
-        cout << "Collision detected!" << endl;
+        // cout << "Collision detected!" << endl;
         result = collCheck(index + 1);
     }
     return result;
