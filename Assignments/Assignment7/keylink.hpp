@@ -8,5 +8,4 @@ struct keyLink {
     string *key;
     keyLink *next;
     keyLink();
-    ~keyLink();
 };

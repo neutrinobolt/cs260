@@ -17,6 +17,6 @@ class keyList {
         ~keyList();
         void push(string *key);
         void pop();
-        void remove(string *key);
+        void pull(string *key);
         
 };

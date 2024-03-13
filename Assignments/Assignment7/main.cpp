@@ -22,12 +22,14 @@ int main() {
     
     ////////////////////////////////////////////////////////////////
     // Test hash function
+    cout << endl << "Testing hash" << endl;
     // test values: "Fudge" (Expect 1) and "Caramel" (Expect 3)
     cout << "hash('Fudge'): " << testTable->hash("Fudge") << endl;
     cout << "hash('Caramel'): " << testTable->hash("Caramel") << endl;
 
     ////////////////////////////////////////////////////////////////
     // Test Insert function
+    cout << endl << "Testing insert" << endl;
     // Generic insertion
     testTable->insert("Fudge", "Caramel");
     tableCheck(testTable);
@@ -43,10 +45,10 @@ int main() {
 
     ////////////////////////////////////////////////////////////////
     // Test valCheck function
-    
+    cout << endl << "Testing valCheck" << endl;
     // Test false result
-    bool checkFalse = testTable->valCheck("Caramel");
-    cout << "valCheck(Caramel): " << checkFalse << endl;
+    bool checkFalse = testTable->valCheck("A");
+    cout << "valCheck(A): " << checkFalse << endl;
 
     // test true result
     bool checkTrue = testTable->valCheck("Fudge");
@@ -54,7 +56,7 @@ int main() {
 
     ////////////////////////////////////////////////////////////////
     // Test remove function
-
+    cout << endl << "Testing remove" << endl;
     // Test value not present error
     testTable->remove("boop", "None");
 

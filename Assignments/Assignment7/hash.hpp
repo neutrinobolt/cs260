@@ -2,15 +2,19 @@
 
 #include <iostream>
 
+#include "keylist.hpp"
+
 using std::string;
 
 class hTable {
     private:
+        keyList *keys;
         int collCheck(int index);
         int findInd(int startInd, string value);
         
     public:
         string hashArray[10];
+        int *count;
         // Construction and destruction
         hTable();
         ~hTable();

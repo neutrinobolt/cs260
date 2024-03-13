@@ -12,7 +12,10 @@ hTable::hTable() {
     for (int ind = 0; ind < 10; ind++) {
         this->hashArray[ind] = "";
     }
-
+    // Create key list
+    this->keys = new keyList;
+    // Start count at 0
+    this->count = 0;
 }
 
 hTable::~hTable() {
@@ -39,6 +42,14 @@ void hTable::insert(string key, string value) {
     // Insert value at hash index
     this->hashArray[hInd] = value;
 
+    // Add key to key list
+    string *keyPoint = &key;
+    this->keys->push(keyPoint);
+    cout << "this->keys->root: " << *this->keys->root->key << endl; //debug
+
+    // Count +1
+    count++;
+
 }
 
 void hTable::remove(string key, string value) {
@@ -49,9 +60,19 @@ void hTable::remove(string key, string value) {
     else {
         // Find index to remove
         int remInd = this->findInd(hash(key), value);
+        cout << "value found at index " << remInd << endl;
 
         // Replace index with ""
         this->hashArray[remInd] = "";
+
+        // Remove key from keylist
+        string *keyPoint = &key;
+        cout << "Preparing to pull key:" << endl;
+        this->keys->pull(keyPoint);
+
+        // Count -1
+        cout << "Value of key " << key << " Successfully removed." << endl;
+        count--;
     }
 }
 
