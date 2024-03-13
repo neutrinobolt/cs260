@@ -13,8 +13,9 @@ hTable::hTable(int size) {
     //     this->hashArray[ind] = "";
     // }
     hashArray = new string[size];
-    // Create key list
+    // Create key and val list
     this->keys = new keyList;
+    this->vals = new keyList;
     // Start count at 0
     this->count = 0;
 }
@@ -48,13 +49,19 @@ void hTable::insert(string key, string value) {
     // Add key to key list
     string *keyPoint = &key;
     this->keys->push(keyPoint);
-    cout << "this->keys->root: " << *this->keys->root->key << endl; //debug
+    // cout << "this->keys->root: " << *this->keys->root->key << endl; //debug
+
+    // Add val to val list
+    string *valPoint = &value;
+    this->vals->push(valPoint);
 
     // Count +1
     count++;
 
-    // Check for resize
-    // if (count == )
+    // Check for resize, resize when half of space is full
+    if (count == hashArray->length() / 2) {
+        this->resize();
+    }
 }
 
 void hTable::remove(string key, string value) {
@@ -74,6 +81,10 @@ void hTable::remove(string key, string value) {
         string *keyPoint = &key;
         // cout << "Preparing to pull key:" << endl;
         this->keys->pull(keyPoint);
+
+        // Remove val from vals
+        string *valPoint = &value;
+        this->keys->pull(valPoint);
 
         // Count -1
         cout << "Value of key " << key << " Successfully removed." << endl;
@@ -114,3 +125,17 @@ int hTable::findInd(int startInd, string value) {
     }
     return result;
 }
+
+void hTable::resize() {
+    // Get current size, return double
+    int new_size = this->hashArray->length() * 2;
+
+    // Create new hasharray
+    string *newArr = new string[new_size];
+
+    // For key and associated value, add to new array
+
+    // Set new array to current
+
+    // Delete old array
+};

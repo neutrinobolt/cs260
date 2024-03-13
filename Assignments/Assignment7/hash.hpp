@@ -9,6 +9,7 @@ using std::string;
 class hTable {
     private:
         keyList *keys;
+        keyList *vals;
         int collCheck(int index);
         int findInd(int startInd, string value);
         void resize();
