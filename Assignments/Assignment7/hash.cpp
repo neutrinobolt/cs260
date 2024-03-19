@@ -12,17 +12,19 @@ hTable::hTable(int size) {
     // for (int ind = 0; ind < 10; ind++) {
     //     this->hashArray[ind] = "";
     // }
-    hashArray = new string[size];
+    hashArray = new string[this->size];
     // Create key and val list
     this->keys = new keyList;
     this->vals = new keyList;
     // Start count at 0
     this->count = 0;
+    this->size = size;
 }
 
 hTable::~hTable() {
-    cout << "Deleting keys:" << endl;
+    // cout << "Deleting keys:" << endl;
     this->keys->~keyList();
+    this->vals->~keyList();
     this->hashArray->~basic_string();
 }
 
@@ -38,20 +40,25 @@ int hTable::hash(string key) {
 
 void hTable::insert(string key, string value) {
     // Hash key
+    cout << "Calculating ind for key: " << key << endl;
     int hInd = this->hash(key);
 
     // Check for collisions
+    cout << "Checking for collisions..." << endl;
     hInd = collCheck(hInd);
 
     // Insert value at hash index
+    cout << "Inserting..." << endl;
     this->hashArray[hInd] = value;
 
     // Add key to key list
+    cout << "Updating keylist..." << endl;
     string *keyPoint = &key;
     this->keys->push(keyPoint);
     // cout << "this->keys->root: " << *this->keys->root->key << endl; //debug
 
     // Add val to val list
+    cout << "Updating vallist..." << endl;
     string *valPoint = &value;
     this->vals->push(valPoint);
 
@@ -59,9 +66,11 @@ void hTable::insert(string key, string value) {
     count++;
 
     // Check for resize, resize when half of space is full
-    if (count == hashArray->length() / 2) {
-        this->resize();
-    }
+    // cout << "Count updated. Checking for resize..." << endl;
+    // cout << this->count << ", " << this->size << endl;
+    // if (this->count == this->size / 2) {
+    //     this->resize();
+    // }
 }
 
 void hTable::remove(string key, string value) {
@@ -84,7 +93,7 @@ void hTable::remove(string key, string value) {
 
         // Remove val from vals
         string *valPoint = &value;
-        this->keys->pull(valPoint);
+        this->vals->pull(valPoint);
 
         // Count -1
         cout << "Value of key " << key << " Successfully removed." << endl;
@@ -127,15 +136,54 @@ int hTable::findInd(int startInd, string value) {
 }
 
 void hTable::resize() {
+    cout << "Resizing table:" << endl;
     // Get current size, return double
-    int new_size = this->hashArray->length() * 2;
+    int newSize = this->size * 2;
 
-    // Create new hasharray
-    string *newArr = new string[new_size];
-
-    // For key and associated value, add to new array
-
+    // Create new hasharray of doubled size
+    cout << "Replacing old table with new one:" << endl;
+    string *newArr = new string[newSize];
+    string *oldArr = this->hashArray;
+    this->size = newSize;
     // Set new array to current
+    this->hashArray = newArr;
+    cout << "Array size: " << this->hashArray->length() << endl;
 
     // Delete old array
+    oldArr->~basic_string();
+
+    // Create new key and val lists to add to
+    keyList *oldKeys = this->keys;
+    keyList *oldVals = this->vals;
+    this->keys = new keyList;
+    this->vals = new keyList;
+
+    // For key and associated value, add to new array
+    this->count = 0;
+    cout << "Reinserting values..." << endl;
+    for (int i = 0; i <= oldKeys->count; i++) {
+        // Get key at list index i
+        cout << "Iteration: " << i << endl;
+        cout << "Collecting val and key: " << *oldKeys->root->key << endl;
+        keyLink *inKey = oldKeys->root;
+        // cout << "Next key: " << *oldKeys->findByInd(i)->next->key << endl;
+
+        // Get value at list index i
+        keyLink *inVal = oldVals->root;
+        cout << "Inserting value of key: " << *inKey->key << endl;
+
+        oldKeys->pop();
+        oldVals->pop();
+        cout << "Vals popped" << endl;
+        // Place key and value to new table
+        this->insert(*inKey->key, *inVal->key);
+        cout << "Value inserted." << endl;
+    }
+    // Destroy key/val lists
+    oldKeys->~keyList();
+    oldVals->~keyList();
+
+    
+    cout << "Table resizing complete." << endl;
+
 };

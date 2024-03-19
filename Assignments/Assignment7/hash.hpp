@@ -17,6 +17,7 @@ class hTable {
     public:
         string *hashArray = nullptr;
         int count;
+        int size;
         // Construction and destruction
         hTable(int size);
         ~hTable();

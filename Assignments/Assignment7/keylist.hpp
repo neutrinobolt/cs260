@@ -6,7 +6,7 @@
 
 class keyList {
     private:
-    bool checkKey(string *key);
+    bool checkKey(string key);
     keyLink *getKey(string *key);
     keyLink *getPrev(string *key);
 
@@ -18,5 +18,6 @@ class keyList {
         void push(string *key);
         void pop();
         void pull(string *key);
+        keyLink *findByInd(int ind);
         
 };

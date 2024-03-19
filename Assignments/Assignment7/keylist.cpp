@@ -12,13 +12,13 @@ keyList::keyList() {
 
 keyList::~keyList() {
     while (this->count > 0) {
-        cout << "Count: " << this->count << endl;
+        // cout << "Count: " << this->count << endl;
         this->pop();
-        cout << "Popped." << endl;
+        // cout << "Popped." << endl;
         cout << "Count: " << this->count << endl;
     }
     cout << "All keys popped." << endl;
-    delete this->root;
+    // delete this->root;
     cout << "list deleted." << endl;
 }
 
@@ -54,53 +54,70 @@ void keyList::pop() {
 // Remove input key
 void keyList::pull(string *key) {
     // Make sure key is in stack
-    cout << "Pulling key " << *key << endl;
-    if (this->checkKey(key) == false) {
+    // cout << "Pulling key " << *key << endl;
+    if (this->checkKey(*key) == false) {
         cout << "Error, invalid key searched." << endl;
     }
     else {
-        cout << "Usable key found" << endl; // debug
+        // cout << "Usable key found" << endl; // debug
         // If key is root, just pop
         if (*key == *this->root->key) {
-            cout << "Removing root:" << endl;
+            // cout << "Removing root:" << endl;
             this->pop();
         }
         else {
             // Find key pointing to key to remove
-            cout << "Removing nonroot:" << endl;
+            // cout << "Removing nonroot:" << endl;
             keyLink *remPrev = this->getPrev(key);
-            cout << "remPrev: " << *remPrev->key << endl; // debug
+            // cout << "remPrev: " << *remPrev->key << endl; // debug
             // Isolate remKey
             keyLink *remKey = this->getKey(key);
             // cout << "remKey: " << *remKey->key << endl; // debug
             // Set previous's next to remKey's next
             remPrev->next = remKey->next;
-            cout << "Key pulled." << endl;
+            // cout << "Key pulled." << endl;
             // Destroy remKey
              delete remKey;
-            cout << "remKey deleted." << endl;
+            // cout << "remKey deleted." << endl;
             
             count--;
         }
     }
 }
 
+// Return item at given location, starting at root = 0
+keyLink *keyList::findByInd(int ind) {
+    int count = 0;
+    keyLink *result = nullptr;
+    keyLink *step = this->root;
+    while (step != nullptr) {
+        if (count == ind) {
+            result = step;
+            break;
+        }
+        step = step->next;
+    }
+    return result;
+}
+
 ////////////////////////////////////////////////////////////////
 // Private functions
 
 // Check if input key is in stack.
-bool keyList::checkKey(string *key) {
-    // cout << "Checking key:" << endl;
+bool keyList::checkKey(string key) {
+    // cout << "Checking for key: " << key << endl;
     bool result = false;
     keyLink *step = this->root;
     // Check each key
     while (step != nullptr) {
-        if (*step->key == *key) {
+        // cout << "Step: " << step->key << endl;
+        if (*step->key == key) {
+            // cout << "Key found!" << endl;
             return true;
         }
         step = step->next;
     }
-
+    cout << "Key not found..." << endl;
     return result;
 }
 

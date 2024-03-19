@@ -69,7 +69,23 @@ int main() {
     tableCheck(testTable);
 
     ////////////////////////////////////////////////////////////////
+    // Test resizing function
+    // cout << endl << "Testing resize" << endl;
+
+    // // Add values to half size (Add 3 more to bring count to 5)
+    // testTable->insert("A" ,"Beep");
+    // testTable->insert("B", "Boop");
+    // // This one should trigger a resize
+    // testTable->insert("C", "Bop");
+    // // Should now receive resizing messages
+
+
+    // // Print table. Should be of size 20, with newly calculated val indices.
+    // tableCheck(testTable);
+
+    ////////////////////////////////////////////////////////////////
     // Garbage collection
+    cout << endl << "Cleaning up..." << endl;
     testTable->~hTable();
     cout << "reached end of test." << endl;
 
