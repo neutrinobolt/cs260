@@ -1,6 +1,6 @@
 # Assignment 7: Hash table
 
-Last updated 3/11/24
+Last updated 3/19/24
 
 ## Plan
 
@@ -73,3 +73,18 @@ empty index is found.
 - extract keys and values, place them in separate arrays in matching order.
 - create new array with size double that of old one
 - reinsert keyk-val pairs to new array
+
+## Results
+
+Overall, I am pleased with the final result. I wasn't able to get the resizing
+function to work properly, though. I kept bad_alloc errors and couldn't figure
+out how to fix it. I have left the code and files used to implement the function
+in main.cpp, lines 72-84, and hash.cpp, lines 68-72. These files are what
+called the function, and all keylist and keylink files were only used to try to
+make this function work. They are all still called, though they
+serve no actual purpose.
+
+You can find the hash, insert, remove, and valcheck functions all in hash.cpp,
+lines 31-40, 41-75, 76-103, and 104-115 respectively. Included in the insert
+and remove functions you will find provisions made for collisions with a
+linear probing technique.
