@@ -196,18 +196,41 @@ int main() {
     ////////////////////////////////////////////////////////////////
     // Test graph functions
     cout << endl << endl << "Testing graph" <<  endl;
+    graph *testGraph = new graph;
 
     ////////////////////////////////////////////////////////////////
     // Test adding vert
+    cout << endl << "Testing addVert" << endl;
+    // Add vert
+    // Print verts root
+    // Add rest of verts
 
-     ////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////
     //  Test adding edge
+    cout << endl << "Testing addEdge" << endl;
+    // Add edge
+    // Print edges root
+    // Add rest of edges
 
     ////////////////////////////////////////////////////////////////
     // Test dijkstra
+    cout << endl << "Testing pathFind" << endl;
+    // Run pathFind with start E, end A
+    // Print path. Should be D, C, A
+    // Destroy new vertlist when done
 
     ////////////////////////////////////////////////////////////////
     // Test Kruskal
+    cout << endl << "Testing minSTree" << endl;
+    // Run minSTree
+    // Print edgelist. Should be CF, DE, AB, AD, EF
+    // Destroy new edgelist when done
+
+    ////////////////////////////////////////////////////////////////
+    // Final Garbage collection
+    cout << endl << "Cleaning..." << endl;
+    testGraph->~graph();
+    cout << "All clean!" << endl;
 
     return 0;
 }

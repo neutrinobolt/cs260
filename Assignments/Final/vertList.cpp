@@ -28,7 +28,7 @@ void vertList::push(vertex *newVert) {
     // Set root to newVert
     this->root = newVert;
     // Add one to count
-    count++;
+    this->count++;
 
 }
 
@@ -39,7 +39,7 @@ void vertList::pop() {
     // delete old root
     delete oldRoot;
     // Subract one from count
-    count--;
+    this->count--;
 }
 
 vertex *vertList::search(char searchId) {
@@ -78,7 +78,7 @@ void vertList::remove(char remId) {
         this->pop();
     }
     // Decrement count
-    count--;
+    this->count--;
 }
 
 void vertList::sortByDist() {

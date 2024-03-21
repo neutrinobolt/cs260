@@ -30,7 +30,7 @@ void edgeList::push(edge *newEdge) {
     // Set root to newVert
     this->root = newEdge;
     // Add one to count
-    count++;
+    this->count++;
 }
 
 void edgeList::pop() {
@@ -40,7 +40,7 @@ void edgeList::pop() {
     // delete old root
     delete oldRoot;
     // Subract one from count
-    count--;
+    this->count--;
 }
 
 edge *edgeList::searchByConns(char startId, char endId) {
@@ -80,7 +80,7 @@ void edgeList::remove(char startId, char endId) {
         this->pop();
     }
     // Decrement count
-    count--;
+    this->count--;
 }
 
 void edgeList::sortByWeight() {

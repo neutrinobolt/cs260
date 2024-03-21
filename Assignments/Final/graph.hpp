@@ -6,7 +6,6 @@
 class graph {
     
     public:
-        int vertCount;
         vertList *vertices;
         edgeList *edges;
 
@@ -14,12 +13,12 @@ class graph {
         ~graph();
         
         void addVert(char vertId);
-        void addEdge(vertex *startVert, vertex *endVert, int weight);
-        void pathFind (vertex *startVert, vertex *endVert);
+        void addEdge(char startId, char endId, int weight);
+        vertList *pathFind (char startId, char endId);
         edgeList *minSTree();
 
     private:
-        vertex *getVert(vertex *searchVert);
-        edge *getEdge(vertex *searchEdge);
+        vertex *getVert(char searchId);
+        edge *getEdge(char startId, char endId);
 
 };
