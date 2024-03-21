@@ -115,3 +115,6 @@ else return this list and start's distance
 3. return newly created edgelist.
 
 - Testing: print new list.
+
+File "Dijkstra_Animation.gif" is used for a reference of the final graph
+object. vertex ids will be given letter names instead of numbers.

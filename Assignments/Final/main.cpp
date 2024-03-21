@@ -105,12 +105,97 @@ int main() {
     cout << endl;
 
     ////////////////////////////////////////////////////////////////
+    // Garbage collection
+    cout << endl << "Cleaning..." << endl;
+    testVList->~vertList();
+    cout << "All clean!" << endl;
+
+    ////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////
     // Test edgeList functions
+    cout << endl << endl << "Testing edgelist" <<  endl;
+    edgeList *testElist = new edgeList;
+
+    ////////////////////////////////////////////////////////////////
+    // Test push function
+    cout << endl << "Testing push" << endl;
+    // Reestablish vertices
+    vertA = new vertex('A');
+    vertB = new vertex('B');
+    vertC = new vertex('C');
+    vertD = new vertex('D');
+    // Create new edge
+    edge *edgeAB = new edge(vertA, vertB, 5);
+    // Add edge
+    testElist->push(edgeAB);
+    // Print root
+    cout << "testElist->root: " << testElist->root->start->id << testElist->root->end->id << endl;
+    ////////////////////////////////////////////////////////////////
+    // Test pop function
+    cout << endl << "Testing pop" << endl;
+    // Pop edge
+    testElist->pop();
+    // If root null, yay!
+    if (testElist->root == nullptr) {
+        cout << "Pop successful." << endl;
+    } else {
+        cout << "ERROR, pop unsuccessful." << endl;
+    }
+
+    ////////////////////////////////////////////////////////////////
+    // Test searchByConns function
+    cout << endl << "Testing searchByConns" << endl;
+    // Create more edges
+    edge *edgeAC = new edge(vertA, vertC, 4);
+    edge *edgeBC = new edge(vertB, vertC, 6);
+    edge *edgeAD = new edge(vertA, vertD, 2);
+    edge *edgeCD = new edge(vertC, vertD, 3);
+    // Push edges
+    testElist->push(edgeAC);
+    testElist->push(edgeBC);
+    testElist->push(edgeAD);
+    testElist->push(edgeCD);
+    // Search for edge AD
+    edge *searchEdge = testElist->searchByConns('A', 'D');
+    // Print result
+    cout << "SearchEdge: " << searchEdge->start->id << searchEdge->end->id << endl;
+
+    ////////////////////////////////////////////////////////////////
+    // Test remove function
+    cout << endl << "Testing remove" << endl;
+    // Remove AD
+    testElist->remove('A', 'D');
+    // Search where AD was. Should show BC
+    cout << "root->listNext: " << testElist->root->listNext->start->id << testElist->root->listNext->end->id << endl;
+
+    ////////////////////////////////////////////////////////////////
+    // Test sortByWeight function
+    cout << endl << "testing sortByWeight" << endl;
+    // sort list
+    testElist->sortByWeight();
+    // Print list. Shoul show CD, AC, BC
+    cout << "sorted list:" << endl;
+    edge *printEdge = testElist->root;
+    for (int i = 0; i < testElist->count; i++) {
+        cout << printEdge->start->id << printEdge->end->id << ", ";
+        printEdge = printEdge->listNext;
+    }
+    cout << endl;
+
+    ////////////////////////////////////////////////////////////////
+    // Garbage collection
+    cout << endl << "Cleaning..." << endl;
+    testElist->~edgeList();
+    delete vertA;
+    delete vertB;
+    delete vertC;
+    delete vertD;
+    cout << "All clean!" << endl;
 
     ////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////
     // Test graph functions
+    cout << endl << endl << "Testing graph" <<  endl;
 
     ////////////////////////////////////////////////////////////////
     // Test adding vert
@@ -123,13 +208,6 @@ int main() {
 
     ////////////////////////////////////////////////////////////////
     // Test Kruskal
-
-    ////////////////////////////////////////////////////////////////
-    // Garbage collection
-    cout << endl << "Cleaning..." << endl;
-    testVList->~vertList();
-    cout << "All clean!" << endl;
-
 
     return 0;
 }

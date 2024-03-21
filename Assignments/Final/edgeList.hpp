@@ -12,11 +12,12 @@ class edgeList {
 
     void push(edge *newEdge);
     void pop();
-    void search(edge *searchEdge);
-    void remove(edge *remEdge);
-    void sort();
+    edge *searchByConns(char startId, char endId);
+    void remove(char startId, char endId);
+    void sortByWeight();
 
     private:
     void swap (edge *startEdge);
+    edge *getPrevious(char startId, char endId);
 
 };

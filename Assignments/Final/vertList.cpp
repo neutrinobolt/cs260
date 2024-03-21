@@ -120,7 +120,7 @@ void vertList::swap(vertex *startVert) {
         startVert = newRoot;
     }
     // First swap is not root, second isn't end
-    else if (startVert->listNext->listNext != nullptr) {
+    else {
         cout << "Swapping nonroot:" << endl;
         // Get previous, start and next
         vertex *preVert = this->getPrevious(startVert->id);
@@ -134,21 +134,6 @@ void vertList::swap(vertex *startVert) {
         startVert->listNext = newNext;
         startVert = newStart;
     }
-    else {
-        cout << "Swapping nonroot with end:" << endl;
-        // Get previous, start and next
-        vertex *preVert = this->getPrevious(startVert->id);
-        vertex *newStart = startVert->listNext;
-        vertex *newNext = startVert;
-        // Set pointers on new vertices
-        preVert->listNext = newStart;
-        newStart->listNext = newNext;
-        newNext->listNext = nullptr;
-        // Replace old vertices with new ones
-        startVert->listNext = newNext;
-        startVert = newStart;
-    }
-    cout << "Vertices swapped!" << endl;
 }
 
 vertex *vertList::getPrevious(char searchId) {

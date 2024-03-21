@@ -8,5 +8,5 @@ struct edge {
     edge *listNext;
     int weight;
 
-    edge(vertex *start, vertex *end);
+    edge(vertex *start, vertex *end, int weight);
 };
