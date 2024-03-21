@@ -27,5 +27,23 @@ void graph::addVert(char vertId) {
     this->vertices->push(newVert);
 }
 
+void graph::addEdge(char startId, char endId, int weight) {
+    // Find start and end vertices
+    vertex *startVert = this->getVert(startId);
+    vertex *endVert = this->getVert(endId);
+    // Create new edge
+    edge *newEdge = new edge(startVert, endVert, weight);
+    // Add to edges
+    this->edges->push(newEdge);
+}
+
 ////////////////////////////////////////////////////////////////
 // Helper functionss
+
+vertex *graph::getVert(char searchId) {
+    return this->vertices->search(searchId);
+}
+
+edge *graph::getEdge(char startId, char endId) {
+    return this->edges->searchByConns(startId, endId);
+}

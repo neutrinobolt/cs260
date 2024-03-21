@@ -201,16 +201,33 @@ int main() {
     ////////////////////////////////////////////////////////////////
     // Test adding vert
     cout << endl << "Testing addVert" << endl;
-    // Add vert
+    // Add vert A
+    testGraph->addVert('A');
     // Print verts root
+    cout << testGraph->vertices->root->id << endl;
     // Add rest of verts
+    testGraph->addVert('B');
+    testGraph->addVert('C');
+    testGraph->addVert('D');
+    testGraph->addVert('E');
+    testGraph->addVert('F');
 
     ////////////////////////////////////////////////////////////////
     //  Test adding edge
     cout << endl << "Testing addEdge" << endl;
-    // Add edge
+    // Add edge AB
+    testGraph->addEdge('A', 'B', 7);
     // Print edges root
+    cout << testGraph->edges->root->start->id << testGraph->edges->root->end->id << endl;
     // Add rest of edges
+    testGraph->addEdge('A', 'C', 9);
+    testGraph->addEdge('A', 'F', 14);
+    testGraph->addEdge('B', 'C', 10);
+    testGraph->addEdge('B', 'D', 15);
+    testGraph->addEdge('C', 'D', 11);
+    testGraph->addEdge('C', 'F', 2);
+    testGraph->addEdge('D', 'E', 6);
+    testGraph->addEdge('E', 'F', 9);
 
     ////////////////////////////////////////////////////////////////
     // Test dijkstra
