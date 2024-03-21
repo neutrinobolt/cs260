@@ -6,4 +6,6 @@ struct vertex {
     int degree;
     vertex *prev;
     vertex *listNext;
+
+    vertex(char id);
 };

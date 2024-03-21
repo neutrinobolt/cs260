@@ -12,11 +12,12 @@ class vertList {
 
     void push(vertex *newVert);
     void pop();
-    void search(vertex *searchVert);
-    void remove(vertex *remvert);
-    void sort();
+    vertex *search(char searchId);
+    void remove(char remId);
+    void sortByDist();
 
     private:
     void swap(vertex *startVert);
+    vertex *getPrevious(char searchId);
 
 };
