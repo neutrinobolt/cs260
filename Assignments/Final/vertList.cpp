@@ -107,21 +107,6 @@ void vertList::sortByDist() {
 
 // Swap adjacent vertices
 void vertList::swap(vertex *startVert) {
-    // First swap is root
-    if (startVert->id == this->root->id) {
-        cout << "Swapping root:" << endl;
-        // Get isolated vertices
-        vertex *newRoot = startVert->listNext;
-        vertex *newNext = startVert;
-        // Adjust new vertex pointers
-        newRoot->listNext = newNext;
-        newNext->listNext = startVert->listNext->listNext;
-        // Replace old vertices with new ones
-        startVert->listNext = newNext;
-        startVert = newRoot;
-    }
-    // First swap is not root, second isn't end
-    else {
         // Copy next's info to pholder
         vertex *pHolder = new vertex(startVert->listNext->id);
         pHolder->distance = startVert->listNext->distance;
@@ -136,23 +121,6 @@ void vertList::swap(vertex *startVert) {
         startVert->prev = pHolder->prev;
         // 
         delete pHolder;
-        // cout << "Swapping nonroot:" << endl;
-        // // Get previous, start and next
-        // vertex *preVert = this->getPrevious(startVert->id);
-        // cout << "preVert: " << preVert->id << endl;
-        // vertex *newStart = startVert->listNext;
-        // cout << "newStart: " << newStart->id << endl;
-        // vertex *newNext = startVert;
-        // cout << "newNext: " << newNext->id << endl;
-        // // Set pointers on new vertices
-        // preVert->listNext = newStart;
-        // newStart->listNext = newNext;
-        // newNext->listNext = startVert->listNext;
-        // // cout << "newNext->listNext: " << newNext->listNext->id << endl;
-        // // Replace old vertices with new ones
-        // startVert->listNext = newNext;
-        // startVert = newStart;
-    }
 }
 
 vertex *vertList::getPrevious(char searchId) {

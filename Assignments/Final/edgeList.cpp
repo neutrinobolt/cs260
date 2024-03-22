@@ -108,34 +108,22 @@ void edgeList::sortByWeight() {
 // Helper functions
 
 void edgeList::swap (edge *startEdge) {
-    // First swap is root
-    if ((startEdge->start->id == this->root->start->id) && (startEdge->end->id == this->root->end->id)) {
-        cout << "Swapping root:" << endl;
-        // Get isolated vertices
-        edge *newRoot = startEdge->listNext;
-        edge *newNext = startEdge;
-        // Adjust new vertex pointers
-        newRoot->listNext = newNext;
-        newNext->listNext = startEdge->listNext->listNext;
-        // Replace old vertices with new ones
-        startEdge->listNext = newNext;
-        startEdge = newRoot;
-    }
-    // First swap is not root, second isn't end
-    else {
-        cout << "Swapping nonroot:" << endl;
-        // Get previous, start and next
-        edge *preVert = this->getPrevious(startEdge->start->id, startEdge->end->id);
-        edge *newStart = startEdge->listNext;
-        edge *newNext = startEdge;
-        // Set pointers on new vertices
-        preVert->listNext = newStart;
-        newStart->listNext = newNext;
-        newNext->listNext = startEdge->listNext->listNext;
-        // Replace old vertices with new ones
-        startEdge->listNext = newNext;
-        startEdge = newStart;
-    }
+    // Copy next's info to pholder
+        edge *pHolder = new edge(
+            startEdge->listNext->start,
+            startEdge->listNext->end,
+            startEdge->listNext->weight
+        );
+        // put start vert info in next
+        startEdge->listNext->start = startEdge->start;
+        startEdge->listNext->end = startEdge->end;
+        startEdge->listNext->weight = startEdge->weight;
+        // Put pholder info in start
+        startEdge->start = pHolder->start;
+        startEdge->end = pHolder->end;
+        startEdge->weight = pHolder->weight;
+        // 
+        delete pHolder;
 }
 
 edge *edgeList::getPrevious(char startId, char endId) {
