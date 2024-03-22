@@ -54,7 +54,7 @@ vertex *vertList::search(char searchId) {
         checkVert = checkVert->listNext;
     }
     // If end of list is reached w/o finding vert, print error and return root
-    cout << "vertex of ID" << searchId << "Not found. returning root." << endl;
+    // cout << "vertex of ID" << searchId << "Not found. returning root." << endl;
     return this->root;
 }
 
@@ -82,7 +82,7 @@ void vertList::remove(char remId) {
 }
 
 void vertList::sortByDist() {
-    cout << "Sorting..." << endl;
+    // cout << "Sorting..." << endl;
     bool done = false;
     while (done == false) {
         done = true;
@@ -90,16 +90,16 @@ void vertList::sortByDist() {
         for (int i = 0; i < this->count; i++) {
             if ((checkVert->listNext != nullptr) && 
             (checkVert->distance > checkVert->listNext->distance)) {
-                cout << "Checkvert, next: " << checkVert->distance << checkVert->listNext->distance << endl;
-                cout << "Swap required." << endl;
+                // cout << "Checkvert, next: " << checkVert->distance << checkVert->listNext->distance << endl;
+                // cout << "Swap required." << endl;
                 this->swap(checkVert);
                 done = false;
             }
             checkVert = checkVert->listNext;
         }
-        cout << "One round complete." << endl;
+        // cout << "One round complete." << endl;
     }
-    cout << "Sort complete!" << endl;
+    // cout << "Sort complete!" << endl;
 }
 
 ////////////////////////////////////////////////////////////////
