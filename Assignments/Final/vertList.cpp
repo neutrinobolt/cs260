@@ -46,7 +46,7 @@ vertex *vertList::search(char searchId) {
     // check each vert, if equals searchVert, return 
     // cout << "Searching for id " << searchId << endl;
     vertex *checkVert = this->root;
-    while (checkVert != nullptr) {
+    for (int i = 0; i < this->count; i++) {
         // cout << "checkVert: " << checkVert->id << endl;
         if (checkVert->id == searchId) {
             return checkVert;
@@ -88,17 +88,18 @@ void vertList::sortByDist() {
         done = true;
         vertex *checkVert = this->root;
         for (int i = 0; i < this->count; i++) {
-            cout << "Checkvert, next: " << checkVert->distance << checkVert->listNext->distance << endl;
-            if (checkVert->distance > checkVert->listNext->distance) {
+            if ((checkVert->listNext != nullptr) && 
+            (checkVert->distance > checkVert->listNext->distance)) {
+                cout << "Checkvert, next: " << checkVert->distance << checkVert->listNext->distance << endl;
                 cout << "Swap required." << endl;
                 this->swap(checkVert);
                 done = false;
             }
             checkVert = checkVert->listNext;
-            cout << "One round complete." << endl;
         }
-        cout << "Sort complete!" << endl;
+        cout << "One round complete." << endl;
     }
+    cout << "Sort complete!" << endl;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -121,18 +122,36 @@ void vertList::swap(vertex *startVert) {
     }
     // First swap is not root, second isn't end
     else {
-        cout << "Swapping nonroot:" << endl;
-        // Get previous, start and next
-        vertex *preVert = this->getPrevious(startVert->id);
-        vertex *newStart = startVert->listNext;
-        vertex *newNext = startVert;
-        // Set pointers on new vertices
-        preVert->listNext = newStart;
-        newStart->listNext = newNext;
-        newNext->listNext = startVert->listNext->listNext;
-        // Replace old vertices with new ones
-        startVert->listNext = newNext;
-        startVert = newStart;
+        // Copy next's info to pholder
+        vertex *pHolder = new vertex(startVert->listNext->id);
+        pHolder->distance = startVert->listNext->distance;
+        pHolder->prev = startVert->listNext->prev;
+        // put start vert info in next
+        startVert->listNext->id = startVert->id;
+        startVert->listNext->distance = startVert->distance;
+        startVert->listNext->prev = startVert->prev;
+        // Put pholder ingo in start
+        startVert->id = pHolder->id;
+        startVert->distance = pHolder->distance;
+        startVert->prev = pHolder->prev;
+        // 
+        delete pHolder;
+        // cout << "Swapping nonroot:" << endl;
+        // // Get previous, start and next
+        // vertex *preVert = this->getPrevious(startVert->id);
+        // cout << "preVert: " << preVert->id << endl;
+        // vertex *newStart = startVert->listNext;
+        // cout << "newStart: " << newStart->id << endl;
+        // vertex *newNext = startVert;
+        // cout << "newNext: " << newNext->id << endl;
+        // // Set pointers on new vertices
+        // preVert->listNext = newStart;
+        // newStart->listNext = newNext;
+        // newNext->listNext = startVert->listNext;
+        // // cout << "newNext->listNext: " << newNext->listNext->id << endl;
+        // // Replace old vertices with new ones
+        // startVert->listNext = newNext;
+        // startVert = newStart;
     }
 }
 

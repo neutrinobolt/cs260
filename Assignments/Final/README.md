@@ -74,15 +74,15 @@ input weight.
 #### pathFinder (start, end)
 
 - This function will calculate the shortest path between vertices start and
-end. If no path can be found, return bool false. Else return a vertex list of
-the path from start to end, and distance.
+end. If no path can be found, return false.
+Else return a vertex list of the path steps from start to end.
 
 1. set all vertex distances to some very high number (500?). Set distance
 on end to 0.
 
 2. Create secondary vert list, sort by distance. Set a count to 0
 
-3. While start distance is not 500:
+3. While secondary verts is not empty:
 
     - Sort vert list in ascending distance order
     - get smallest distance vertex, all edges connecting to verts in secondary

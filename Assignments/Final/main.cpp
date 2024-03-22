@@ -211,6 +211,13 @@ int main() {
     testGraph->addVert('D');
     testGraph->addVert('E');
     testGraph->addVert('F');
+    // Print whole list
+    vertex *stepVert = testGraph->vertices->root;
+    while (stepVert != nullptr) {
+        cout << stepVert->id << ", ";
+        stepVert = stepVert->listNext;
+    }
+    cout << endl;
 
     ////////////////////////////////////////////////////////////////
     //  Test adding edge
@@ -233,8 +240,18 @@ int main() {
     // Test dijkstra
     cout << endl << "Testing pathFind" << endl;
     // Run pathFind with start E, end A
-    // Print path. Should be D, C, A
-    // Destroy new vertlist when done
+    bool pathResult = testGraph->pathFind('E', 'A');
+    // Print preves from start to end.. Should be E, D, C, A
+    if (pathResult == true) {
+        vertex *pathStep = testGraph->getVert('E');
+        while (pathStep != nullptr) {
+            cout << pathStep->id << ", ";
+            pathStep = pathStep->listNext;
+        }
+        cout << endl;
+    }else {
+        cout << "Error, no path found." << endl;
+    }
 
     ////////////////////////////////////////////////////////////////
     // Test Kruskal

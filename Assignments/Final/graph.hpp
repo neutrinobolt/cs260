@@ -14,11 +14,11 @@ class graph {
         
         void addVert(char vertId);
         void addEdge(char startId, char endId, int weight);
-        vertList *pathFind (char startId, char endId);
+        bool pathFind (char startId, char endId);
         edgeList *minSTree();
-
-    private:
         vertex *getVert(char searchId);
         edge *getEdge(char startId, char endId);
+
+    private:
 
 };

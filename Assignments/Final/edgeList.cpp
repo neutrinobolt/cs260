@@ -90,17 +90,18 @@ void edgeList::sortByWeight() {
         done = true;
         edge *checkEdge = this->root;
         for (int i = 0; i < this->count; i++) {
-            cout << "Checkedge, next: " << checkEdge->weight << checkEdge->listNext->weight << endl;
-            if (checkEdge->weight > checkEdge->listNext->weight) {
+            if ((checkEdge->listNext != nullptr) && 
+            (checkEdge->weight > checkEdge->listNext->weight)) {
+                // cout << "Checkedge, next: " << checkEdge->weight << checkEdge->listNext->weight << endl;
                 cout << "Swap required." << endl;
                 this->swap(checkEdge);
                 done = false;
             }
             checkEdge = checkEdge->listNext;
-            cout << "One round complete." << endl;
         }
-        cout << "Sort complete!" << endl;
+        cout << "One round complete." << endl;
     }
+    cout << "Sort complete!" << endl;
 }
 
 ////////////////////////////////////////////////////////////////
