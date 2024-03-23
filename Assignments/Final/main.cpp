@@ -257,8 +257,19 @@ int main() {
     // Test Kruskal
     cout << endl << "Testing minSTree" << endl;
     // Run minSTree
-    // Print edgelist. Should be CF, DE, AB, AD, EF
+    edgeList *tEdges = testGraph->minSTree();
+    // Print edgelist. Should be CF, DE, AB, AC, EF
+    cout << "results:" << endl;
+    for (
+        edge *stepEdge = tEdges->root;
+        stepEdge != nullptr;
+        stepEdge = stepEdge->listNext
+    ) {
+        cout << stepEdge->start->id << stepEdge->end->id << ", ";
+    }
+    cout << endl;
     // Destroy new edgelist when done
+    tEdges->~edgeList();
 
     ////////////////////////////////////////////////////////////////
     // Final Garbage collection

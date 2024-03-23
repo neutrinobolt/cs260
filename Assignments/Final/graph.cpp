@@ -39,15 +39,16 @@ void graph::addEdge(char startId, char endId, int weight) {
 
 bool graph::pathFind (char startId, char endId) {
     // Get start and end vertices
-    cout << "Setting up pathFind:" << endl;
+    // cout << "Setting up pathFind:" << endl;
     vertex *startVert = this->getVert(startId);
     vertex *endVert = this->getVert(endId);
-    cout << "Distances set. Creating unchecked list..." << endl;
+    // cout << "Distances set. Creating unchecked list..." << endl;
     // Create secondary vertList
     vertList *unchecked = new vertList;
     vertex *addVert = this->vertices->root;
     while (addVert != nullptr) {
         // cout << "Adding vertex: " << addVert->id << endl;
+        addVert->distance = 500;
         vertex *subVert = new vertex(addVert->id);
         unchecked->push(subVert);
         addVert = addVert->listNext;
@@ -56,14 +57,29 @@ bool graph::pathFind (char startId, char endId) {
     
     unchecked->search(endId)->distance = 0;
     
-    cout << "list initialized. Beginning distance calculator..." << endl;
+    // cout << "list initialized. Beginning distance calculator..." << endl;
     // Distance calc algorithm
     edgeList *neighbors = new edgeList;
+    vertex *stepVert;
     while (unchecked->count != 0) {
         // Sort list
         unchecked->sortByDist();
-        // cout << "Unchecked: " << endl;
-        // vertex *stepVert = unchecked->root;
+        // // cout << "Displaying unchecked distances..." << endl;
+        // stepVert = unchecked->root;
+        // while (stepVert != nullptr) {
+        //     cout << stepVert->distance << ", ";
+        //     stepVert = stepVert->listNext;
+        // }
+        // cout << endl;
+        // // cout << "Displaying main distances..." << endl;
+        // stepVert = this->vertices->root;
+        // while (stepVert != nullptr) {
+        //     cout << stepVert->distance << ", ";
+        //     stepVert = stepVert->listNext;
+        // }
+        // cout << endl;
+        // // cout << "Unchecked: " << endl;
+        // stepVert = unchecked->root;
         // for (int i = 0; i < unchecked->count; i++) {
         //     cout << stepVert->id << ", ";
         //     stepVert = stepVert->listNext;
@@ -80,6 +96,7 @@ bool graph::pathFind (char startId, char endId) {
             edge *subEdge = new edge(checkEdge->start, checkEdge->end, checkEdge->weight);
             if ((subEdge->start->id == checKVert->id) || (subEdge->end->id == checKVert->id)) {
                 // cout << "Adding to neighbors: " << subEdge->start->id << subEdge->end->id << endl;
+
                 neighbors->push(subEdge);
             }
             checkEdge = checkEdge->listNext;
@@ -88,12 +105,12 @@ bool graph::pathFind (char startId, char endId) {
         // cout << "updating neighbor distances..." << endl;
         while (neighbors->count != 0) {
             edge *step = neighbors->root;
-            vertex *neighbor;
+            
             int compDist = checKVert->distance + step->weight;
             // cout << "Compdist: " << compDist << endl;
             // Get neighbor
             if (step->start->id == checKVert->id) {
-                neighbor = step->end;
+                vertex *neighbor = this->vertices->search(step->end->id);
                 // cout << "neighbor: " << neighbor->id << endl;
                 // cout << "neighbor->distance: " << neighbor->distance << endl;
                 // If necessary, update neighbor distance
@@ -102,7 +119,7 @@ bool graph::pathFind (char startId, char endId) {
                     // cout << "Updating end neighbor distance:" << endl;
                     neighbor->distance = compDist;
                     unchecked->search(neighbor->id)->distance = compDist;
-                    // this->vertices->search(neighbor->id)->distance = compDist;
+                    this->vertices->search(neighbor->id)->distance = compDist;
                     // cout << "this->vertices->search(neighbor->id): ";
                     // cout << this->vertices->search(neighbor->id)->id << endl;
                     // cout << "this->vertices->search(neighbor->id)->distance: ";
@@ -112,7 +129,7 @@ bool graph::pathFind (char startId, char endId) {
                 }
             }
             else {
-                neighbor = step->start;
+                vertex *neighbor = this->vertices->search(step->start->id);
                 // cout << "neighbor: " << neighbor->id << endl;
                 // cout << "neighbor->distance: " << neighbor->distance << endl;
                 // If necessary, update neighbor distance
@@ -121,31 +138,79 @@ bool graph::pathFind (char startId, char endId) {
                     // cout << "Updating start neighbor distance:" << endl;
                     neighbor->distance = compDist;
                     unchecked->search(neighbor->id)->distance = compDist;
-                    // this->vertices->search(neighbor->id)->distance = compDist;
+                    this->vertices->search(neighbor->id)->distance = compDist;
+                    // cout << "this->vertices->search(neighbor->id)->distance: ";
+                    // cout << this->vertices->search(neighbor->id)->distance << endl;
                     this->vertices->search(neighbor->id)->prev = this->vertices->search(checKVert->id);
                 }
             }
             // pop step
             neighbors->pop();
-            // cout << "Remaining neighbors:" << endl;
-            // edge *stepEdge = neighbors->root; 
-            // for (int i = 0; i < neighbors->count; i++) {
-            //     cout << stepEdge->start->id << stepEdge->end->id << ", ";
-            //     stepEdge = stepEdge->listNext;
-            // }
-            // cout << endl;
         }
         // pop
         unchecked->pop();
     }
-    cout << "Distance calculator finished. Determining final result..." << endl;
+    // cout << "Distance calculator finished. Determining final result..." << endl;
+    // cout << startVert->distance << endl;
+    // Reset all distances
     // If start distance is still 500, return false
     if (startVert->distance == 500) {
+        stepVert = this->vertices->root;
+    for (int i = 0; i < this->vertices->count; i++) {
+        stepVert->distance = 500;
+        stepVert = stepVert->listNext;
+    }
         return false;
     }
     // Else return true
-    else {return true;}
-    cout << "Pathfind finished!" << endl;
+    else {
+        stepVert = this->vertices->root;
+        for (int i = 0; i < this->vertices->count; i++) {
+            stepVert->distance = 500;
+            stepVert = stepVert->listNext;
+        }
+        return true;
+    }
+}
+
+edgeList *graph::minSTree() {
+    // Create secondary graph, add all edges to it
+    // cout << "Creating vgraph:" << endl;
+    graph *vGraph = new graph;
+    for (
+        vertex *stepVert = this->vertices->root;
+        stepVert != nullptr;
+        stepVert = stepVert->listNext
+    ) {
+        vGraph->addVert(stepVert->id);
+        // cout << "Vertex " << stepVert->id << " added." << endl;
+    }
+    // Create result list
+    edgeList *result = new edgeList;
+    // sort edge list
+    this->edges->sortByWeight();
+    // Check each edge. if verts dont already have a connecting path, add to results
+    // cout << "Checking edges..." << endl;
+    edge *stepEdge = this->edges->root;
+    while (stepEdge != nullptr) {
+        // cout << "StepEdge: " << stepEdge->start->id << stepEdge->end->id << endl;
+        // cout << "Step next: " << stepEdge->listNext->start->id << stepEdge->listNext->end->id << endl;
+        bool areConned = vGraph->pathFind(stepEdge->start->id, stepEdge->end->id);
+        // cout << "areconned: " << areConned << endl;
+        if (areConned == false) {
+            edge *steplica = new edge(
+                stepEdge->start,
+                stepEdge->end,
+                stepEdge->weight
+            );
+            vGraph->edges->push(steplica);
+            result->push(steplica);
+            // cout << "Edge added." << endl;
+        }
+        stepEdge = stepEdge->listNext;
+    }
+    // Return results
+    return result;
 }
 
 ////////////////////////////////////////////////////////////////

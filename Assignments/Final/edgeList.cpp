@@ -84,7 +84,7 @@ void edgeList::remove(char startId, char endId) {
 }
 
 void edgeList::sortByWeight() {
-    cout << "Sorting..." << endl;
+    // cout << "Sorting..." << endl;
     bool done = false;
     while (done == false) {
         done = true;
@@ -93,15 +93,15 @@ void edgeList::sortByWeight() {
             if ((checkEdge->listNext != nullptr) && 
             (checkEdge->weight > checkEdge->listNext->weight)) {
                 // cout << "Checkedge, next: " << checkEdge->weight << checkEdge->listNext->weight << endl;
-                cout << "Swap required." << endl;
+                // cout << "Swap required." << endl;
                 this->swap(checkEdge);
                 done = false;
             }
             checkEdge = checkEdge->listNext;
         }
-        cout << "One round complete." << endl;
+        // cout << "One round complete." << endl;
     }
-    cout << "Sort complete!" << endl;
+    // cout << "Sort complete!" << endl;
 }
 
 ////////////////////////////////////////////////////////////////
