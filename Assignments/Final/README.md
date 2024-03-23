@@ -1,11 +1,11 @@
 # Final Project
 
-Last Updated 3/19/24
+Last Updated 3/22/24
 
-## Important note
+## Important note (Happy)
 
-This project is not finished yet. I have the skeleton header files for
-now, and will finish and turn in the full project by Saturday.
+The project is finished now! See below for my original plans and final
+results.
 
 ## Plan
 
@@ -118,3 +118,34 @@ else return this list and start's distance
 
 File "Dijkstra_Animation.gif" is used for a reference of the final graph
 object. vertex ids will be given letter names instead of numbers.
+
+## Results
+
+Finally, I managed to get it working! While my pathfinding algorithm doesn't
+return the shortest path, it does correctly return if a path is achievable
+or not, and makes it so a path can be traced from start to end. This I am
+considering a success. I am keeping track of the vertices and edges in linked
+lists, so the search complexity of the pathfinding and search algorithms
+probably take a pretty big hit. Sorting has O(n) i believe, and pathfinding
+sits at O(n**2), I think? This is because I repeatedly reference secondary
+lists for the algorithm. Not the most efficient thing in the world. If
+I were to use hash tables instead of linked lists that would probably
+make it a lot faster.
+
+### Notable function lines
+
+#### Testing lines
+
+- Vertlist: lines 11-111
+- Edgelist: lines 115-193
+- Basic graph functions: lines 197-237
+- pathFind: lines 240-254
+- minstree: lines 257-272
+
+#### Function definitions
+
+- pathfind: lines 40-175
+- minstree: lines 176-215
+
+Find vertlist and edgelist function definitions in files vertlist.cpp
+and edgelist.cpp, respectively. Function definitions are practically the same.
