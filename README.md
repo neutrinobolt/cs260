@@ -1,6 +1,6 @@
 # cs260
 
-##Assignment 0
+## Assignment 0
 
 ### 5 computing topics that interest me
 1. Interactions between programs written in different languages. How is it done?
